@@ -3,6 +3,7 @@
 ![Dev workflow](https://github.com/jbettenh/groundhog/actions/workflows/dev_build.yml/badge.svg)
 ![PROD workflow](https://github.com/jbettenh/groundhog/actions/workflows/prod_pipeline.yml/badge.svg)
 [![codecov](https://codecov.io/github/jbettenh/groundhog/branch/trunk/graph/badge.svg?token=F6F4DKBV5C)](https://codecov.io/github/jbettenh/groundhog)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 **CS50** - _Final Project_
 
