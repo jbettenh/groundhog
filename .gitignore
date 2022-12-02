@@ -1,0 +1,26 @@
+# PEP 582
+*.pyc
+**__pypackages__/
+**__pycache__/
+**swp
+
+# Environments
+venv/
+.venv
+.env
+
+# Build
+dist/
+build/
+*.egg-info/
+
+# Test 
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Operate
+flask_session/
+instance/
+
+
