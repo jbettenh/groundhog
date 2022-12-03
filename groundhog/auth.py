@@ -36,12 +36,11 @@ def register():
             hash = generate_password_hash(
                 request.form.get("password"), method="pbkdf2:sha256", salt_length=8
             )
-            try:
-                user = Users(username, hash, email)
-                db.session.add(user)
-                db.session.commit()
-            except:
-                return error("User already exists")
+
+            user = Users(username, hash, email)
+            db.session.add(user)
+            db.session.commit()
+
             return redirect("/")
     else:
         return render_template("auth/register.html")
@@ -71,6 +70,8 @@ def login():
             user[0].hash, request.form.get("password")
         ):
             return error("invalid username or password", 403)
+
+        session["user_id"] = user[0].id
         return redirect("/")
     else:
         return render_template("auth/login.html")

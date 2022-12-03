@@ -1,8 +1,7 @@
-def test_index_page(test_client):
+def test_about_page_error(test_client):
 
-    response = test_client.get("/")
-    assert response.status_code == 200
-    assert b"Hi from index" in response.data
+    response = test_client.post("/about")
+    assert response.status_code == 405
 
 
 def test_index_page_error(test_client):

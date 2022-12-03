@@ -67,21 +67,7 @@ def test_register_user(test_client):
         data={
             "username": "Max",
             "hash": "passwort",
-            "email": "jdoe@groundhog.com",
-        },
-    )
-    assert response.status_code == 302
-
-
-def test_register_user(test_client):
-
-    response = test_client.post(
-        "/auth/register",
-        data={
-            "username": "Max",
-            "password": "passwort",
-            "confirmation": "passwort",
-            "email": "jdoe@groundhog.com",
+            "email": "mmuster@groundhog.com",
         },
     )
     assert response.status_code == 302

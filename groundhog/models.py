@@ -13,7 +13,7 @@ class Users(db.Model):
     name_first = db.Column(db.String(100))
     name_last = db.Column(db.String(100))
 
-    def __init__(self, username, hash, email, name_first, name_last):
+    def __init__(self, username, hash, email, name_first=None, name_last=None):
         self.username = username
         self.hash = hash
         self.email = email
