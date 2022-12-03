@@ -20,13 +20,9 @@ def create_app(test_config=None):
     db.init_app(app)
 
     # Register blueprints
-    from groundhog import auth
+    from groundhog import auth, routes
 
     app.register_blueprint(auth.bp)
-
-    @app.route("/", methods=["GET"])
-    def index():
-        """Show homepage"""
-        return render_template("index.html")
+    app.register_blueprint(routes.bp)
 
     return app
