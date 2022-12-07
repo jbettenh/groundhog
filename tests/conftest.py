@@ -1,6 +1,5 @@
 import pytest
 from flask import template_rendered
-from testing.postgresql import Postgresql
 from groundhog import create_app
 from groundhog.models import Users, db
 
@@ -28,51 +27,17 @@ def new_user():
 def app():
     app = create_app()
     app.config.from_object("config.TestingConfig")
-    """ 
+
     from groundhog.models import db
 
     db.init_app(app)
-    
-    """
-
-    with Postgresql() as postgresql:
-        app.config["SQLALCHEMY_DATABASE_URI"] = postgresql.url()
 
     yield app
 
 
 @pytest.fixture
 def test_client(app):
-    # init_database(app)
     return app.test_client()
-
-
-@pytest.fixture(scope="session")
-def db(app):
-    db.app = app
-    db.create_all()
-
-    yield db
-
-    db.session.close()
-    db.drop_all()
-
-
-@pytest.fixture(scope="function", autouse=True)
-def session(db):
-    connection = db.engine.connect()
-    transaction = connection.begin()
-
-    options = dict(bind=connection, binds={})
-    session_ = db.create_scoped_session(options=options)
-
-    db.session = session_
-
-    yield session_
-
-    transaction.rollback()
-    connection.close()
-    session_.remove()
 
 
 @pytest.fixture
