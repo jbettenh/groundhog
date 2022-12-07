@@ -1,5 +1,7 @@
-from flask import redirect, session
+from flask import redirect, request, session
 from functools import wraps
+from geopy.geocoders import Nominatim
+import requests
 
 
 def error(message, code=400):
@@ -20,3 +22,20 @@ def login_required(f):
         return f(*args, **kwargs)
 
     return decorated_function
+
+
+def get_coordinates(ip_address):
+    response = requests.get(f"https://ipapi.co/{ip_address}/json/").json()
+
+    try:
+        latitude = response["latitude"]
+        longitude = response["longitude"]
+        return latitude, longitude
+    except:
+        return None
+
+
+def get_geocode(address):
+    geolocator = Nominatim(user_agent="groundhog")
+    location = geolocator.geocode(address)
+    return (location.latitude, location.longitude)
