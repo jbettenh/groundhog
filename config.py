@@ -37,9 +37,11 @@ class TestingConfig(Config):
     DEBUG = True
     SESSION_PERMANENT = False
     SESSION_TYPE = "filesystem"
+    """
     SQLALCHEMY_DATABASE_URI = (
         "postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s" % POSTGRES
     )
+    """
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     TEMPLATES_AUTO_RELOAD = True
     TESTING = True

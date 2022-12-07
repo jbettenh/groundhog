@@ -1,33 +1,21 @@
 from flask import (
     Blueprint,
+    flash,
     redirect,
     render_template,
     request,
     session,
 )
 import folium
-from groundhog.helpers import login_required
+from groundhog.helpers import get_coordinates, get_geocode, login_required
 
 bp = Blueprint("routes", __name__, url_prefix="/")
 
 
-@bp.route("/", methods=["GET"])
-@login_required
-def index():
-    """Show homepage"""
-    return render_template("index.html")
-
-
 @bp.route("/about", methods=["GET"])
 @login_required
-def add_page():
+def about():
     return render_template("about.html")
-
-
-@bp.route("/tracking", methods=["GET"])
-@login_required
-def tracking():
-    return render_template("tracking.html")
 
 
 @bp.route("/history", methods=["GET"])
@@ -36,11 +24,27 @@ def history():
     return render_template("history.html")
 
 
+@bp.route("/", methods=["GET", "POST"])
+@login_required
+def index():
+
+    if request.method == "POST":
+        location = get_geocode(request.form.get("address"))
+        flash(location)
+        return render_template("index.html")
+    else:
+        return render_template("index.html")
+
+
 @bp.route("/map", methods=["GET"])
 @login_required
 def map_page():
-    start_coords = (42.375890, -71.114685)
-    folium_map = folium.Map(location=start_coords, zoom_start=17)
+    geo_location = get_coordinates(request.remote_addr)
+
+    if geo_location is None:
+        geo_location = (42.375890, -71.114685)
+
+    folium_map = folium.Map(location=geo_location, zoom_start=17)
 
     # Add layer for habitat
     folium.raster_layers.WmsTileLayer(
@@ -75,7 +79,12 @@ def map_page():
     return render_template("map.html", folium_map=folium_map._repr_html_())
 
 
-@bp.route("/zoo", methods=["GET"])
+@bp.route("/tracking", methods=["GET"])
 @login_required
+def tracking():
+    return render_template("tracking.html")
+
+
+@bp.route("/zoo", methods=["GET"])
 def zoo():
     return render_template("zoo.html")
