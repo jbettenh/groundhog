@@ -24,6 +24,12 @@ def login_required(f):
     return decorated_function
 
 
+def get_geocode(address):
+    geolocator = Nominatim(user_agent="groundhog")
+    location = geolocator.geocode(address)
+    return (location.latitude, location.longitude)
+
+
 def get_coordinates(ip_address):
     response = requests.get(f"https://ipapi.co/{ip_address}/json/").json()
 
@@ -33,9 +39,3 @@ def get_coordinates(ip_address):
         return latitude, longitude
     except:
         return None
-
-
-def get_geocode(address):
-    geolocator = Nominatim(user_agent="groundhog")
-    location = geolocator.geocode(address)
-    return (location.latitude, location.longitude)

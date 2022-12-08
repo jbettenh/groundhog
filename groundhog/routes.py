@@ -7,7 +7,9 @@ from flask import (
     session,
 )
 import folium
+from groundhog.chances import chances
 from groundhog.helpers import get_coordinates, get_geocode, login_required
+
 
 bp = Blueprint("routes", __name__, url_prefix="/")
 
@@ -29,8 +31,8 @@ def history():
 def index():
 
     if request.method == "POST":
-        location = get_geocode(request.form.get("address"))
-        flash(location)
+        # location = get_geocode(request.form.get("address"))
+        flash(chances(request.form.get("country")))
         return render_template("index.html")
     else:
         return render_template("index.html")
