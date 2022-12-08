@@ -1,20 +1,16 @@
 {% extends "base.html" %}
 
 {% block main %}
+<div class="mb-3">
+    <h3>Will I see a groundhog today?</h3>
+</div>
 <form action="/" method="POST">
+
     <div class="mb-3">
-        <input type="text" name="address" placeholder="Enter desired address" autocomplete="off"
-            class="form-control mx-auto w-auto" autofocus>
-    </div>
-    <div class="mb-3">
-        <div class="mb-3">
-            <input type="text" name="latitude" placeholder="Enter desired latitude" class="form-control mx-auto w-auto">
-        </div>
-        <div class="mb-3">
-            <input type="text" name="longitude" placeholder="Enter desired longitude"
-                class="form-control mx-auto w-auto">
-        </div>
+        <input type="text" name="country" placeholder="Enter country" autocomplete="country"
+            class="form-control mx-auto w-auto">
     </div>
     <button type="submit" class="btn btn-primary">Calculate chances</button>
 </form>
+
 {% endblock %}
