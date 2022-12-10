@@ -1,5 +1,4 @@
 def test_login_page(test_client):
-
     response = test_client.get("/auth/login")
     assert response.status_code == 200
     assert b"Log In" in response.data
@@ -10,7 +9,7 @@ def test_login_user(test_client):
     response = test_client.post(
         "/auth/login",
         data={
-            "username": "Max",
+            "username": "test",
             "hash": "passwort",
         },
     )

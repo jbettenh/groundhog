@@ -3,7 +3,7 @@ from flask import Flask, render_template
 from flask_session import Session
 
 
-def create_app(test_config=None):
+def create_app():
     # Create the Flask application
     app = Flask(__name__, instance_relative_config=True)
 
