@@ -1,6 +1,3 @@
-coverage:
-  status:
-    project:
-      default:
-        target: 80%
-        threshold: 10%
+branches: 
+          - trunk
+        informational: true
