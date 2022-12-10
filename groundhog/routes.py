@@ -9,6 +9,7 @@ from flask import (
 import folium
 from groundhog.chances import chances
 from groundhog.helpers import get_coordinates, get_geocode, login_required
+from groundhog.models import Sightings, db
 
 
 bp = Blueprint("routes", __name__, url_prefix="/")
@@ -23,7 +24,8 @@ def about():
 @bp.route("/history", methods=["GET"])
 @login_required
 def history():
-    return render_template("history.html")
+    sightings = Sightings.query.all()
+    return render_template("history.html", sightings=sightings)
 
 
 @bp.route("/", methods=["GET", "POST"])
@@ -32,7 +34,7 @@ def index():
 
     if request.method == "POST":
         # location = get_geocode(request.form.get("address"))
-        flash(chances(request.form.get("country")))
+        # flash(chances(request.form.get("country")))
         return render_template("index.html")
     else:
         return render_template("index.html")
@@ -75,16 +77,31 @@ def map_page():
         show=False,
     ).add_to(folium_map)
 
+    # Add a marker
+    folium.Marker(location=geo_location, popup="test marker").add_to(folium_map)
+
     # Add a legend to hide/show layers
     folium.LayerControl().add_to(folium_map)
 
     return render_template("map.html", folium_map=folium_map._repr_html_())
 
 
-@bp.route("/tracking", methods=["GET"])
+@bp.route("/sighting", methods=["GET", "POST"])
 @login_required
-def tracking():
-    return render_template("tracking.html")
+def sighting():
+    if request.method == "POST":
+        lat = request.form.get("latitude")
+        lon = request.form.get("longitude")
+
+        sighting = Sightings(
+            request.form.get("name"), lat, lon, request.form.get("description")
+        )
+        db.session.add(sighting)
+        db.session.commit()
+
+        return redirect("/map")
+    else:
+        return render_template("sighting.html")
 
 
 @bp.route("/zoo", methods=["GET"])

@@ -5,5 +5,34 @@ History
 {% endblock %}
 
 {% block main%}
-<p>Hi from history</p>
+<div class="mb-3">
+    <h3>History of Sightings</h3>
+</div>
+<div class="mb-3">
+    <a href="/sighting"><button type="submit" class="btn btn-primary">Add Sighting</button></a>
+</div>
+<div class="mb-3">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Name</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sighting in sightings %}
+            <tr>
+                <td>{{sighting.timestamp.strftime('%Y-%m-%d  %H:%M')}}</td>
+                <td>{{sighting.name}}</td>
+                <td>{{sighting.latitude}}</td>
+                <td>{{sighting.longitude}}</td>
+                <td>{{sighting.description}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

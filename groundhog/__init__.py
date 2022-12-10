@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template
+from flask import Flask
 from flask_session import Session
 
 
@@ -18,6 +18,12 @@ def create_app():
     from groundhog.models import db
 
     db.init_app(app)
+    """
+      with app.app_context():
+        db.drop_all()
+        db.create_all()
+    
+    """
 
     # Register blueprints
     from groundhog import auth, routes

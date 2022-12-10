@@ -2,7 +2,7 @@ import pytest
 from flask import template_rendered
 from flask_session import Session
 from groundhog import create_app
-from groundhog.models import Users
+from groundhog.models import Users, Sightings
 
 
 class AuthActions(object):
@@ -22,6 +22,12 @@ class AuthActions(object):
 def new_user():
     user = Users("jdoe", "password", "jdoe@groundhog.com", "John", "Doe")
     return user
+
+
+@pytest.fixture(scope="module")
+def new_sighting():
+    sighting = Sightings("Sanders Theater", 42.375890, -71.114685, "Test sighting")
+    return sighting
 
 
 @pytest.fixture

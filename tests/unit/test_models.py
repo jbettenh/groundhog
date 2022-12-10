@@ -8,3 +8,10 @@ def test_new_user(new_user):
 
 def test_repr(new_user):
     assert repr(new_user) == '<User "jdoe">'
+
+
+def test_new_sighting(new_sighting):
+    assert new_sighting.name == "Sanders Theater"
+    assert new_sighting.latitude == 42.375890
+    assert new_sighting.longitude == -71.114685
+    assert new_sighting.description == "Test sighting"

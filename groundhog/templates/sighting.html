@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}
+Sighting
+{% endblock %}
+
+{% block main %}
+<div class="mb-3">
+    <h3>Where did you see the groundhog?</h3>
+</div>
+<form action="/sighting" method="POST">
+    <div class="mb-3">
+        <input type="text" name="name" placeholder="Enter a name for the sighting" class="form-control mx-auto w-auto"
+            autofocus>
+    </div>
+    <div class="mb-3">
+        <input type="text" name="latitude" placeholder="Enter the latitude" class="form-control mx-auto w-auto">
+    </div>
+    <div class="mb-3">
+        <input type="text" name="longitude" placeholder="Enter the longitude" class="form-control mx-auto w-auto">
+    </div>
+    <div class="mb-3">
+        <input type="text" name="description" placeholder="Enter a description for the sighting"
+            class="form-control mx-auto w-auto">
+    </div>
+    <button type="submit" class="btn btn-primary">Add Sighting</button>
+</form>
+{% endblock %}
