@@ -37,10 +37,10 @@ class ProductionConfig(Config):
 class TestingConfig(Config):
     FLASK_ENV = "testing"
     DEBUG = True
+    SECRET_KEY = os.environ.get("SECRET_KEY")
     SESSION_PERMANENT = False
     SESSION_TYPE = "filesystem"
     SQLALCHEMY_DATABASE_URI = DB_URI
     SQLALCHEMY_ECHO = True
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     TESTING = True
-    SECRET_KEY = "flask-session-insecure-secret-key"
