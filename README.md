@@ -117,7 +117,7 @@ The `pyproject.toml` and `poetry.lock` files are created by Poetry. The `pyproje
 
 This `README.md` file is the current file. These are a common way to give information on the project, ex. installtion or usage documentation.
 
-The `requirements.txt` file are often still needed for builds such as GitHub Actions CI/CD or SAAS, such as Heroku or Render. Therefore Poetry allows for creating a `requirements.txt` file from the `poetry.lock`.
+The `requirements.txt` file are often still needed for builds such as GitHub Actions Continuous Integration and Continuous Delivery (CI/CD) or Platform As A Service (PaaS), such as Heroku or Render. Therefore Poetry allows for creating a `requirements.txt` file from the `poetry.lock`.
 
 To create this file, you can the run command:
 
