@@ -19,21 +19,18 @@ Created by: Joseph Bettenhausen
 
 This is a Flask application for the final project of CS50. The title of the project is called `Groundhog`. This app allows users to record any sighting of a groundhog they have seen.
 
----
-
 ## Project Structure:
 
 The project structure is shown below. Flask is very flexible and doesn't standardize the layout. I have chosen to use the application factory pattern.
 
 ```bash
+groundhog
 |-- .github
 |   |-- workflows
 |       |-- codecov.yml
 |       |-- dev_build.yml
 |       `-- prod_pipeline.yml
-|-- LICENSE
-|-- README.md
-|-- config.py
+|-- .venv
 |-- groundhog
 |   |-- __init__.py
 |   |-- auth.py
@@ -54,8 +51,14 @@ The project structure is shown below. Flask is very flexible and doesn't standar
 |       |-- map.html
 |       |-- sighting.html
 |       `-- zoo.html
+|-- .env
+|-- .env.template
+|-- .gitignore
+|-- config.py
+|-- LICENSE
 |-- poetry.lock
 |-- pyproject.toml
+|-- README.md
 |-- requirements.txt
 `-- tests
     |-- conftest.py
@@ -153,7 +156,9 @@ pytest --setup-show --cov=groundhog --cov-report term-missing
 - test_models.py
 - test_templates.py
 
----
+The `conftest.py` file contains setup and teardown code for the tests. This is used by Pytest. The `test.db` isn't included in the repository as it is created only for some functional tests.
+
+I grouped the tests into two directories either `functional` or `unit` which was based and level of the test. The unit tests individual functions. The functional tests test what the user is interacting with.
 
 ## References:
 
