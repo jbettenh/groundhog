@@ -18,12 +18,6 @@ def create_app():
     from groundhog.models import db
 
     db.init_app(app)
-    """
-      with app.app_context():
-        db.drop_all()
-        db.create_all()
-    
-    """
 
     # Register blueprints
     from groundhog import auth, routes

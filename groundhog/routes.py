@@ -39,7 +39,10 @@ def map_page():
     geo_location = get_coordinates(request.remote_addr)
 
     if geo_location is None:
-        geo_location = request.args.get("start_location")  # (42.375890, -71.114685)
+        geo_location = (
+            request.args.get("latitude"),
+            request.args.get("longitude"),
+        )
 
     folium_map = folium.Map(location=geo_location, zoom_start=17)
 
@@ -91,8 +94,7 @@ def sighting():
         )
         db.session.add(sighting)
         db.session.commit()
-        start_location = (lat, lon)
-        return redirect(url_for("map", start_location=start_location))
+        return redirect(url_for("routes.map_page", latitude=lat, longitude=lon))
     else:
         return render_template("sighting.html")
 
