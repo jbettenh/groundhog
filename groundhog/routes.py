@@ -1,11 +1,4 @@
-from flask import (
-    Blueprint,
-    flash,
-    redirect,
-    render_template,
-    request,
-    session,
-)
+from flask import Blueprint, flash, redirect, render_template, request, session, url_for
 import folium
 from groundhog.chances import chances
 from groundhog.helpers import get_coordinates, get_geocode, login_required
@@ -46,7 +39,7 @@ def map_page():
     geo_location = get_coordinates(request.remote_addr)
 
     if geo_location is None:
-        geo_location = (42.375890, -71.114685)
+        geo_location = request.args.get("start_location")  # (42.375890, -71.114685)
 
     folium_map = folium.Map(location=geo_location, zoom_start=17)
 
@@ -98,8 +91,8 @@ def sighting():
         )
         db.session.add(sighting)
         db.session.commit()
-
-        return redirect("/map")
+        start_location = (lat, lon)
+        return redirect(url_for("map", start_location=start_location))
     else:
         return render_template("sighting.html")
 
