@@ -1,8 +1,8 @@
 import pytest
 from flask import template_rendered
-from flask_session import Session
-from groundhog import create_app
+from groundhog import create_app, db
 from groundhog.models import Users, Sightings
+from config import TestingConfig
 
 
 class AuthActions(object):
@@ -32,31 +32,25 @@ def new_sighting():
 
 @pytest.fixture
 def app():
-    app = create_app()
-    app.config.from_object("config.TestingConfig")
+    app = create_app(TestingConfig)
 
-    yield app
+    if app.testing:
+        with app.app_context():
+            db.drop_all()
+            from groundhog.models import Users, Sightings
+
+            db.create_all()
+
+            yield app
+
+            db.session.remove()
+            if str(db.engine.url) == TestingConfig.SQLALCHEMY_DATABASE_URI:
+                db.drop_all()
 
 
 @pytest.fixture
 def test_client(app):
     return app.test_client()
-
-
-@pytest.fixture
-def init_database(app):
-    from groundhog.models import db
-
-    db.init_app(app)
-
-    with app.app_context():
-        db.drop_all()
-        db.create_all()
-        user1 = Users("test", "password", "test@groundhog.com")
-        db.session.add(user1)
-        db.session.commit()
-
-    yield db
 
 
 @pytest.fixture

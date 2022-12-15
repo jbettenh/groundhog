@@ -1,29 +1,23 @@
-import os
 from flask import Flask
+from flask_migrate import Migrate
 from flask_session import Session
+from flask_sqlalchemy import SQLAlchemy
+from config import Config
+
+db = SQLAlchemy()
+migrate = Migrate()
+sess = Session()
 
 
-def create_app():
+def create_app(config_class=Config):
     # Create the Flask application
-    app = Flask(__name__, instance_relative_config=True)
-
-    config = os.environ.get("CONFIG_TYPE", default="config.DevelopmentConfig")
-    app.config.from_object(config)
+    app = Flask(__name__)
+    app.config.from_object(config_class)
 
     # Initialize Flask extensions here
-    sess = Session()
-    sess.init_app(app)
-
-    # Initialize db
-    from groundhog.models import db
-
     db.init_app(app)
-    """
-      with app.app_context():
-        db.drop_all()
-        db.create_all()
-    
-    """
+    migrate.init_app(app, db)
+    sess.init_app(app)
 
     # Register blueprints
     from groundhog import auth, routes
@@ -32,3 +26,6 @@ def create_app():
     app.register_blueprint(routes.bp)
 
     return app
+
+
+from groundhog import models
