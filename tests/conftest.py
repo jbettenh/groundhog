@@ -36,17 +36,16 @@ def app():
 
     if app.testing:
         with app.app_context():
-            # db.drop_all()
+            db.drop_all()
             from groundhog.models import Users, Sightings
 
             db.create_all()
 
-            return app
-            # yield app
+            yield app
 
-            # db.session.remove()
-            # if str(db.engine.url) == TestingConfig.SQLALCHEMY_DATABASE_URI:
-            #   db.drop_all()
+            db.session.remove()
+            if str(db.engine.url) == TestingConfig.SQLALCHEMY_DATABASE_URI:
+                db.drop_all()
 
 
 @pytest.fixture
