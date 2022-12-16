@@ -36,12 +36,16 @@ def index():
 @bp.route("/map", methods=["GET"])
 @login_required
 def map_page():
-    geo_location = get_coordinates(request.remote_addr)
 
-    if geo_location is None:
+    latitude = request.args.get("latitude")
+    longitude = request.args.get("longitude")
+
+    if latitude is None or longitude is None:
+        geo_location = (42.375890, -71.114685)
+    else:
         geo_location = (
-            request.args.get("latitude"),
-            request.args.get("longitude"),
+            latitude,
+            longitude,
         )
 
     folium_map = folium.Map(location=geo_location, zoom_start=17)
