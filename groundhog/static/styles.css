@@ -3,3 +3,18 @@ nav .navbar-brand
 {
     font-size: x-large;
 }
+
+body {
+    background-color: #CED89E;
+    color: #76BA99;
+}
+
+h3 {
+    color: white;
+}
+
+.sub-box {
+    background-color: #76BA99;
+    width: 18rem;
+}
+
