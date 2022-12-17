@@ -2,7 +2,7 @@ from flask import Blueprint, flash, redirect, render_template, request, session,
 import folium
 from groundhog.chances import chances
 from groundhog.helpers import get_coordinates, get_geocode, login_required
-from groundhog.models import Sightings, db
+from groundhog.models import db, Sightings, Zoos
 
 
 bp = Blueprint("routes", __name__, url_prefix="/")
@@ -105,4 +105,5 @@ def sighting():
 
 @bp.route("/zoo", methods=["GET"])
 def zoo():
-    return render_template("zoo.html")
+    zoos = Zoos.query.all()
+    return render_template("zoo.html", zoos=zoos)
