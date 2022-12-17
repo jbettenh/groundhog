@@ -38,3 +38,13 @@ class Sightings(db.Model):
         self.latitude = latitude
         self.longitude = longitude
         self.description = description
+
+
+class Zoos(db.Model):
+    __tablename__ = "zoos"
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    website = db.Column(db.String(200))
+    description = db.Column(db.String(1000))
+    has_groundhog = db.Column(db.Boolean(create_constraint=True, name="has_groundhog"))

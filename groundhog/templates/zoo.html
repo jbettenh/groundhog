@@ -5,5 +5,22 @@ Zoo
 {% endblock %}
 
 {% block main %}
-<p>Hi from zoo</p>
+<div class="mb-3">
+    <h3>Zoos with Groundhogs</h3>
+</div>
+
+{% for zoo in zoos %}
+<div class="card mb-3 mx-auto w-75" style="width: 18rem;">
+    <!--<img class="card-img-top" src="..." alt="Card image">-->
+    <iframe src="{{zoo.website}}" width="100%" height="600" name="iframe" title="Zoo website"></iframe>
+    <div class="card-body">
+        <h5 class="card-title">{{zoo.name}}</h5>
+        <p class="card-text">{{zoo.description if value}}</p>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><a href="{{zoo.website if value}}" class="card-link">{{zoo.website}}</a></li>
+        <li class="list-group-item">Are there groundhogs: {{"Yes" if zoo.has_groundhog}} </li>
+    </ul>
+</div>
+{% endfor %}
 {% endblock %}
