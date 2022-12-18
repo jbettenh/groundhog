@@ -13,9 +13,9 @@ def test_get_coordinates():
 
 
 def test_get_coordinates_none():
-    loc = get_coordinates("255.255")
+    geocode = get_coordinates("255.255")
 
-    assert loc == None
+    assert geocode == (40.7943793, -73.9719996)
 
 
 def test_get_geocode():
