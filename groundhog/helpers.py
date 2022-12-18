@@ -1,4 +1,4 @@
-from flask import redirect, request, session
+from flask import redirect, session
 from functools import wraps
 from geopy.geocoders import Nominatim
 import requests
@@ -33,9 +33,11 @@ def get_geocode(address):
 def get_coordinates(ip_address):
     response = requests.get(f"https://ipapi.co/{ip_address}/json/").json()
 
-    try:
+    if "error" not in response:
         latitude = response["latitude"]
         longitude = response["longitude"]
         return latitude, longitude
-    except:
-        return None
+    else:
+        latitude = 40.7943793
+        longitude = -73.9719996
+        return latitude, longitude

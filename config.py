@@ -14,7 +14,9 @@ postgres = {
 
 base_dir = os.path.abspath(os.path.dirname(__file__))
 db_uri_sqlite = "sqlite:///" + os.path.join(base_dir, "groundhog.db")
-db_uri_postgresql = "postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s" % postgres
+db_uri_postgresql = (
+    "postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s" % postgres
+)
 
 
 class Config(object):

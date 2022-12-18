@@ -20,7 +20,7 @@ build/
 
 groundhog/static/css/*min*
 
-# Test 
+# Test
 .pytest_cache/
 .coverage
 coverage.xml
@@ -30,5 +30,3 @@ tests/test.db
 # Operate
 flask_session/
 instance/
-
-

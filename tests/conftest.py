@@ -26,7 +26,9 @@ def new_user():
 
 @pytest.fixture(scope="module")
 def new_sighting():
-    sighting = Sightings("Sanders Theater", 42.375890, -71.114685, "Test sighting")
+    sighting = Sightings(
+        "Sanders Theater", 42.375890, -71.114685, "Test sighting"
+    )
     return sighting
 
 
@@ -37,7 +39,7 @@ def app():
     if app.testing:
         with app.app_context():
             db.drop_all()
-            from groundhog.models import Users, Sightings
+            from groundhog.models import Users, Sightings  # noqa: F401
 
             db.create_all()
 

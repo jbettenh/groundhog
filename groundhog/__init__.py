@@ -28,4 +28,4 @@ def create_app(config_class=Config):
     return app
 
 
-from groundhog import models
+from groundhog import models  # noqa: E402, F401

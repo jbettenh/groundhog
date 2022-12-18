@@ -7,4 +7,5 @@ def test_zoo_uses_template(test_client, captured_templates):
     template, context = captured_templates[0]
 
     assert len(captured_templates) == 1
+    assert response.status_code == 200
     assert template.name == "zoo.html"

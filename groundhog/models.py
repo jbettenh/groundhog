@@ -6,7 +6,9 @@ class Users(db.Model):
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(100), index=True, nullable=False, unique=True)
+    username = db.Column(
+        db.String(100), index=True, nullable=False, unique=True
+    )
     hash = db.Column(db.String(1000), nullable=False)
     email = db.Column(db.String(100), index=True, nullable=False, unique=True)
     name_first = db.Column(db.String(100))
@@ -47,4 +49,6 @@ class Zoos(db.Model):
     name = db.Column(db.String(100), nullable=False)
     website = db.Column(db.String(200))
     description = db.Column(db.String(1000))
-    has_groundhog = db.Column(db.Boolean(create_constraint=True, name="has_groundhog"))
+    has_groundhog = db.Column(
+        db.Boolean(create_constraint=True, name="has_groundhog")
+    )

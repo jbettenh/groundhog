@@ -34,7 +34,9 @@ def register():
 
         if password == confirmation:
             hash = generate_password_hash(
-                request.form.get("password"), method="pbkdf2:sha256", salt_length=8
+                request.form.get("password"),
+                method="pbkdf2:sha256",
+                salt_length=8,
             )
 
             user = Users(username, hash, email)
@@ -64,7 +66,9 @@ def login():
         elif not request.form.get("password"):
             return error("Missing password", 403)
 
-        user = db.session.execute(db.select(Users).filter_by(username=username)).one()
+        user = db.session.execute(
+            db.select(Users).filter_by(username=username)
+        ).one()
 
         if len(user) != 1 or not check_password_hash(
             user[0].hash, request.form.get("password")

@@ -1,7 +1,14 @@
-from flask import Blueprint, flash, redirect, render_template, request, session, url_for
+from flask import (
+    Blueprint,
+    flash,
+    redirect,
+    render_template,
+    request,
+    url_for,
+)
 import folium
 from groundhog.chances import chances
-from groundhog.helpers import get_coordinates, get_geocode, login_required
+from groundhog.helpers import login_required
 from groundhog.models import db, Sightings, Zoos
 
 
@@ -26,8 +33,7 @@ def history():
 def index():
 
     if request.method == "POST":
-        # location = get_geocode(request.form.get("address"))
-        # flash(chances(request.form.get("country")))
+        flash(chances(request.form.get("country")))
         return render_template("index.html")
     else:
         return render_template("index.html")
@@ -52,11 +58,15 @@ def map_page():
 
     # Add layer for habitat
     folium.raster_layers.WmsTileLayer(
-        url="https://www.sciencebase.gov:443/geoserver/CONUS_HabMap_2001/wms?SERVICE=WMS&",
+        url="""https://www.sciencebase.gov:443/geoserver/
+        CONUS_HabMap_2001/wms?SERVICE=WMS&""",
         name="Habitat",
         fmt="image/png",
         layers="Woodchuck (Marmota monax) mWOODx v1",
-        attribute="U.S. Geological Survey (USGS) - Gap Analysis Project (GAP), 2018, Woodchuck (Marmota monax) mWOODx_CONUS_2001v1 Habitat Map: U.S. Geological Survey data release, https://doi.org/10.5066/F7BG2MD4.",
+        attribute="""U.S. Geological Survey (USGS) - Gap Analysis
+         Project (GAP), 2018, Woodchuck (Marmota monax)
+         mWOODx_CONUS_2001v1 Habitat Map: U.S. Geological Survey data
+         release, https://doi.org/10.5066/F7BG2MD4.""",
         transparent=True,
         opacity=0.2,
         overlay=True,
@@ -65,11 +75,15 @@ def map_page():
 
     # Add layer for range
     folium.raster_layers.WmsTileLayer(
-        url="https://www.sciencebase.gov:443/geoserver/CONUS_Range_2001/wms?SERVICE=WMS&",
+        url="""https://www.sciencebase.gov:443/geoserver/
+        CONUS_Range_2001/wms?SERVICE=WMS&""",
         name="Range",
         fmt="image/png",
         layers="Woodchuck (Marmota monax) mWOODx v1",
-        attribute="U.S. Geological Survey (USGS) - Gap Analysis Project (GAP), 2018, Woodchuck (Marmota monax) mWOODx_CONUS_2001v1 Range Map: U.S. Geological Survey data release, https://doi.org/10.5066/F70864GK.",
+        attribute="""U.S. Geological Survey (USGS) - Gap Analysis
+         Project (GAP), 2018, Woodchuck (Marmota monax)
+         mWOODx_CONUS_2001v1 Range Map: U.S. Geological Survey data
+         release, https://doi.org/10.5066/F70864GK.""",
         transparent=True,
         opacity=0.2,
         overlay=True,
@@ -78,7 +92,9 @@ def map_page():
     ).add_to(folium_map)
 
     # Add a marker
-    folium.Marker(location=geo_location, popup="test marker").add_to(folium_map)
+    folium.Marker(location=geo_location, popup="test marker").add_to(
+        folium_map
+    )
 
     # Add a legend to hide/show layers
     folium.LayerControl().add_to(folium_map)
@@ -98,7 +114,9 @@ def sighting():
         )
         db.session.add(sighting)
         db.session.commit()
-        return redirect(url_for("routes.map_page", latitude=lat, longitude=lon))
+        return redirect(
+            url_for("routes.map_page", latitude=lat, longitude=lon)
+        )
     else:
         return render_template("sighting.html")
 
