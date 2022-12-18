@@ -8,12 +8,13 @@
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
-  <link href="/static/styles.css" rel="stylesheet" />
+  <link href="/static/main.min.css" rel="stylesheet" />
+
 
   <title>{% block title %}{% endblock %}</title>
 </head>
 
-<body>
+<body class="bg-secondary">
   <nav class="bg-light border navbar navbar-expand-md navbar-light fixed-bottom">
     <div class="container-fluid">
       <a class="navbar-brand" href="/"><span>Groundhog</span></a>
@@ -31,11 +32,12 @@
               <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                 Tracking
               </button>
-              <ul class="dropdown-menu">
+              <ul>
                 <li>
                   <a class="dropdown-item" href="sighting">Add Sighting</a>
                 </li>
-                <li><a class="dropdown-item" href="history">History</a></li>
+                <li><a class="dropdown-item" href="history">History</a>
+                </li>
               </ul>
             </div>
           </li>
