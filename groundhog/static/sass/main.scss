@@ -1,0 +1,27 @@
+// custom colors
+$primary: #76BA99;
+$secondary: #CED89E;
+$info: #ADCF9F;
+$light: #FFDCAE;
+$dark: #76BA99;
+
+// import bootstrap
+@import '../node_modules/bootstrap/scss/bootstrap';
+
+body {
+    background-color: #CED89E;
+}
+
+h3 {
+    color: white;
+}
+
+/* Size for brand */
+nav .navbar-brand
+{
+    font-size: x-large;
+}
+
+.sub-box {
+    width: 18rem;
+}

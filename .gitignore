@@ -10,10 +10,15 @@ venv/
 .env
 .vscode/
 
+# Development
+groundhog/static/node_modules
+
 # Build
 dist/
 build/
 *.egg-info/
+
+groundhog/static/css/*min*
 
 # Test 
 .pytest_cache/
