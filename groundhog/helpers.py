@@ -1,6 +1,7 @@
 from flask import redirect, session
 from functools import wraps
 from geopy.geocoders import Nominatim
+from geopy.extra.rate_limiter import RateLimiter
 import requests
 
 
@@ -24,12 +25,6 @@ def login_required(f):
     return decorated_function
 
 
-def get_geocode(address):
-    geolocator = Nominatim(user_agent="groundhog")
-    location = geolocator.geocode(address)
-    return (location.latitude, location.longitude)
-
-
 def get_coordinates(ip_address):
     response = requests.get(f"https://ipapi.co/{ip_address}/json/").json()
 
@@ -41,3 +36,10 @@ def get_coordinates(ip_address):
         latitude = 40.7943793
         longitude = -73.9719996
         return latitude, longitude
+
+
+def get_geocode(address):
+    geolocator = Nominatim(user_agent="groundhog")
+    geocode = RateLimiter(geolocator.geocode, min_delay_seconds=1)
+    location = geocode(address)
+    return (location.latitude, location.longitude)
