@@ -20,7 +20,6 @@ db_uri_postgresql = (
 
 
 class Config(object):
-    FLASK_ENV = "default"
     SESSION_PERMANENT = False
     SESSION_TYPE = "filesystem"
     SQLALCHEMY_DATABASE_URI = db_uri_postgresql
@@ -29,17 +28,11 @@ class Config(object):
 
 
 class DevelopmentConfig(Config):
-    FLASK_ENV = "development"
     SQLALCHEMY_DATABASE_URI = db_uri_postgresql
     TEMPLATES_AUTO_RELOAD = True
 
 
-class ProductionConfig(Config):
-    FLASK_ENV = "production"
-
-
 class TestingConfig(Config):
-    FLASK_ENV = "testing"
     SQLALCHEMY_DATABASE_URI = db_uri_postgresql
     SQLALCHEMY_ECHO = True
     TESTING = True
