@@ -58,8 +58,7 @@ def map_page():
 
     # Add layer for habitat
     folium.raster_layers.WmsTileLayer(
-        url="""https://www.sciencebase.gov:443/geoserver/
-        CONUS_HabMap_2001/wms?SERVICE=WMS&""",
+        url="""https://www.sciencebase.gov:443/geoserver/CONUS_HabMap_2001/wms?SERVICE=WMS&""",  # noqa E501
         name="Habitat",
         fmt="image/png",
         layers="Woodchuck (Marmota monax) mWOODx v1",
@@ -75,8 +74,7 @@ def map_page():
 
     # Add layer for range
     folium.raster_layers.WmsTileLayer(
-        url="""https://www.sciencebase.gov:443/geoserver/
-        CONUS_Range_2001/wms?SERVICE=WMS&""",
+        url="""https://www.sciencebase.gov:443/geoserver/CONUS_Range_2001/wms?SERVICE=WMS&""",  # noqa E501
         name="Range",
         fmt="image/png",
         layers="Woodchuck (Marmota monax) mWOODx v1",
@@ -91,13 +89,16 @@ def map_page():
         show=False,
     ).add_to(folium_map)
 
-    # Add a marker
-    folium.Marker(location=geo_location, popup="test marker").add_to(
-        folium_map
-    )
-
     # Add a legend to hide/show layers
     folium.LayerControl().add_to(folium_map)
+
+    # Add a markers
+    markers = Sightings.query.all()
+
+    for marker in markers:
+        folium.Marker(
+            location=(marker.latitude, marker.longitude), popup=marker.name
+        ).add_to(folium_map)
 
     return render_template("map.html", folium_map=folium_map._repr_html_())
 
