@@ -1,3 +1,4 @@
+import pytest
 from groundhog.helpers import error, get_coordinates, get_geocode
 
 
@@ -6,6 +7,7 @@ def test_error_handler():
     assert test_error.status_code == 302
 
 
+@pytest.mark.skip
 def test_get_coordinates():
     loc = get_coordinates("45.130.83.145")
 
