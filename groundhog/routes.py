@@ -15,12 +15,6 @@ from groundhog.models import db, Sightings, Zoos
 bp = Blueprint("routes", __name__, url_prefix="/")
 
 
-@bp.route("/about", methods=["GET"])
-@login_required
-def about():
-    return render_template("about.html")
-
-
 @bp.route("/history", methods=["GET"])
 @login_required
 def history():
@@ -29,7 +23,6 @@ def history():
 
 
 @bp.route("/", methods=["GET", "POST"])
-@login_required
 def index():
 
     if request.method == "POST":
@@ -123,6 +116,7 @@ def sighting():
 
 
 @bp.route("/zoo", methods=["GET"])
+@login_required
 def zoo():
     zoos = Zoos.query.all()
     return render_template("zoo.html", zoos=zoos)
