@@ -17,27 +17,27 @@ Created by: Joseph Bettenhausen. Düsseldorf, Germany
 
 #### Description:
 
-This is a Flask application for the final project of CS50. The title of the project is called `Groundhog`. This app allows users to record any sighting of a groundhog they have seen.
+This is a Flask application for the final project of CS50. The title of the project is called `Groundhog`. This app allows users to record sightings of groundhogs within the continental United States.
 
-I chose to use [Poetry](https://pypi.org/project/poetry/) for environment and dependency management. I have used this before and found it ease to use. It is also becoming very popular and wanted to have more exposure to it.
+I chose to use [Poetry](https://pypi.org/project/poetry/) for environment and dependency management. I have experience with Poetry and found it easy to use. It is also becoming very popular among Python developers and I wanted to have more exposure to it.
 
-I had experience with creating Django apps, but since Week 9 included a [Flask](https://pypi.org/project/Flask/) application, I wanted to continue to learn more about it.
+Even though I have experience creating Django applications, I chose to make a [Flask](https://pypi.org/project/Flask/) application. This would allow me to use my Python knowledge and expand my exposure to Flask, which was introduced in Week 9 of the CS50X course.
 
-However, I opted not to use the CS50 library for SQL and instead chose to use [Flask SQL Alchemy](https://pypi.org/project/flask-sqlalchemy/). It is an extension for Flask which makes it easier to use SQLAlchemy. SQLAlchemy is an Object Releational Mapper (ORM), which are often used in larger projects, simplify querying, and abstract away the specific database system. SQLAlchemy has gotten a lot of good reviews for usage with Python, so I wanted to implement that into this project. As I have had no experience with any ORM before, I thought it important to pick one for ease of use, setup, and with good documentation and examples.
+I opted not to use the CS50 library for SQL and instead chose to use [Flask SQL Alchemy](https://pypi.org/project/flask-sqlalchemy/). It is an extension for Flask which makes it easier to use SQLAlchemy. SQLAlchemy is an Object Relational Mapper (ORM), which are often used in larger projects to simplify querying and abstract away the specific database systems. As I have had no experience with any ORM before, I thought it important to pick one for ease of use, setup, with good documentation, and examples. I wanted to implement SQLAlchemy into the project, because it has received a lot of good reviews for usage with Python.
 
-It is said code is often read more often than written. then formatting is important, therefore I picked the popular package [Black](https://pypi.org/project/black/).
+It is said, that code is more often read than it is written. Therefore formatting and linting are important. That is why I picked the popular packages [Black](https://pypi.org/project/black/) and [Flake8](https://pypi.org/project/flake8/) to format and lint my code. Both were easy to setup and immediately useful in improving the code quality. I was also able to set them up on pre-commit check, so that they are always checking the code on every commit.
 
-The Flask tutorial in the documentation uses [Pytest](https://pypi.org/project/pytest/). Pytest is a very popular framework for testing Python projects not just Flask applications. So I was really interested in using it to write my tests and get more experience in it.
+The tutorial from the official Flask documentation uses [Pytest](https://pypi.org/project/pytest/). Pytest is a reliable and detailed framework for testing Python projects not just Flask applications. I was really interested in using it to write my tests and to further my experience with it.
 
 ## Project Structure:
 
-The project structure is shown below. Flask is very flexible and doesn't standardize the layout. I have chosen to use the application factory pattern.
+The project structure is shown below. Flask is very flexible and doesn't standardize the layout. I have chosen to use the [application factory pattern](https://flask.palletsprojects.com/en/2.2.x/patterns/appfactories/).
 
 ```bash
 groundhog
 |-- .github
+|   |-- codecov.yml
 |   |-- workflows
-|       |-- codecov.yml
 |       |-- dev_build.yml
 |       `-- prod_pipeline.yml
 |-- .venv
@@ -109,17 +109,15 @@ The `.env` file contains secrets like passwords and API keys and should not be u
 
 The `.gitignore` is needed for projects tracked with Git. This file allows you to not upload temporary files, secrets, or caches that are in the project folder to the public repository.
 
-The `config.py` file contains classes for creating configurations for different environments. This allows for configurations for different environments to be stored in a single file. It also gives the ability to inherit from the default class configuration. I chose this method, because it avoids having repetition in the multiple configurations.
+The `config.py` file contains classes for creating configurations for different environments. This allows for configurations of different environments to be stored in a single file. It also gives the ability to inherit from the default class configuration. I chose this method, because it avoids having repetition in the multiple configurations.
 
 The `LICENSE` file is created from the GitHub template for MIT licenses and specifies the usage of this project.
 
-The `pyproject.toml` and `poetry.lock` files are created by Poetry. The `pyproject.toml` is a configuration file from Poetry, which contains the build information defined in PEP 518. That file contains the dependencies for the project. The `poetry.lock` file is created by Poetry and this 'pins' the versions defined in the `pyproject.toml` file. This should also be uploaded to public repositories so others can install the same version of dependencies as I used.
+The `pyproject.toml` and `poetry.lock` files are created by Poetry. The `pyproject.toml` is a configuration file from Poetry, which contains the build information defined in PEP 518. That file contains the dependencies for the project. The `poetry.lock` file is created by Poetry and this 'pins' the versions defined in the `pyproject.toml` file. This should also be uploaded to public repositories so others can install the same version of dependencies that I used.
 
-This `README.md` file is the current file. These are a common way to give information on the project, ex. installtion or usage documentation.
+This `README.md` file is the current file. These are a common way to give information on the project, ex. installation or usage documentation.
 
-The `requirements.txt` file are often still needed for builds such as GitHub Actions Continuous Integration and Continuous Delivery (CI/CD) or Platform As A Service (PaaS), such as Heroku or Render. Therefore Poetry allows for creating a `requirements.txt` file from the `poetry.lock`.
-
-To create this file, you can the run command:
+The `requirements.txt` file are often still needed for builds such as GitHub Actions Continuous Integration and Continuous Delivery (CI/CD) or Platform As A Service (PaaS), such as Heroku or Render. Therefore Poetry allows for creating a `requirements.txt` file from the `poetry.lock`. To create this file, you can run this command:
 
 ```
 poetry export --with dev --without-hashes --format=requirements.txt > requirements.txt
@@ -127,11 +125,14 @@ poetry export --with dev --without-hashes --format=requirements.txt > requiremen
 
 ### .github - GitHub Actions Workflows
 
-In the directory .github\workflows contains YAML files for running GitHub actions. The current status includes a build of the project and executing the tests. The `codecov.yml` file is used for configuring non-defaults for the Codecov project. The `dev_build.yml` runs the CI on any commit to any branch other than the trunk branch. The `prod_pipeline.yml` runs the CI on any commit to the trunk branch. This workflow also creates and uploads a test report to Codecov. This allows for the usage of the Codecov badge at the top of this README.md. In the future this workflow would also include a CD component and deploy the app to a SAAS.
+The directory .github\workflows contains YAML files for running GitHub actions. The current configruation builds the project and executes the unit tests. The `codecov.yml` file is used for configuring non-defaults for the coverage report for the project. The `dev_build.yml` runs the CI on any commit to any branch -- other than the trunk branch. The `prod_pipeline.yml` runs the CI on any commit to the trunk branch. This workflow also creates and uploads a test report to [Codecov](https://about.codecov.io/). This allows for the usage of the Codecov badge at the top of this README.md. In the future this workflow would also include a CD component and deploy the app to a PAAS.
+
+.github\
+
+- codecov.yml
 
 .github\workflows
 
-- codecov.yml
 - dev_build.yml
 - prod_pipeline.yml
 
@@ -139,7 +140,7 @@ In the directory .github\workflows contains YAML files for running GitHub action
 
 ### tests - Pytest Tests
 
-A command to run all the tests, create a report as well as show the lines which are not yet covered is:
+The command to run all the tests, create a report as well as show the lines which are not yet covered is:
 
 ```
 pytest --setup-show --cov=groundhog --cov-report term-missing
@@ -163,12 +164,13 @@ pytest --setup-show --cov=groundhog --cov-report term-missing
 - test_models.py
 - test_templates.py
 
-The `conftest.py` file contains setup and teardown code for the tests. This is used by Pytest. The `test.db` isn't included in the repository as it is created only for some functional tests.
+The `conftest.py` file is used by Pytest and contains the setup and teardown code for the tests. The `test.db` isn't included in the repository as it is created only for some functional tests.
 
-I grouped the tests into two directories either `functional` or `unit` which was based and level of the test. The unit tests individual functions. The functional tests test what the user is interacting with.
+I grouped the tests into two directories either `functional` or `unit` which was based on the level of the test. The unit tests test individual functions. The functional tests test the user interactions.
 
 ## References:
 
 - [Flask application factory tutorial](https://flask.palletsprojects.com/en/2.2.x/tutorial/factory/)
 - [Github Actions examples](https://github.com/mgrum/flask-example-cicd/blob/main/.github/workflows/README.md)
 - [Testing Flask applications](https://testdriven.io/blog/flask-pytest/)
+- [The Flask mega tutorial](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world)
