@@ -10,8 +10,8 @@
     integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
   <link href="/static/css/main.min.css" rel="stylesheet" />
 
-
   <title>{% block title %}{% endblock %}</title>
+
 </head>
 
 <body class="bg-secondary">
@@ -27,23 +27,8 @@
         <ul class="navbar-nav me-auto mt-2">
           <li class="nav-item"><a class="nav-link" href="/map">Map</a></li>
           <li class="nav-item"><a class="nav-link" href="/zoo">Zoo</a></li>
-          <li class="nav-item">
-            <div class="btn-group dropup">
-              <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                Tracking
-              </button>
-              <ul class="dropdown-menu">
-                <li>
-                  <a class="dropdown-item" href="sighting">Add Sighting</a>
-                </li>
-                <li><a class="dropdown-item" href="history">History</a>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/about">About</a>
-          </li>
+          <li class="nav-item"><a class="nav-link" href="sighting">Add Sighting</a></li>
+          <li class="nav-item"><a class="nav-link" href="history">Tracking History</a></li>
         </ul>
         <ul class="navbar-nav ms-auto mt-2">
           <li class="nav-item">
