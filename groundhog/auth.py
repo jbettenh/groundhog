@@ -4,6 +4,7 @@ from flask import (
     render_template,
     request,
     session,
+    url_for,
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -43,7 +44,7 @@ def register():
             db.session.add(user)
             db.session.commit()
 
-            return redirect("/")
+            return redirect(url_for("auth.login"))
     else:
         return render_template("auth/register.html")
 
