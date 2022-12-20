@@ -23,6 +23,7 @@ def history():
 
 
 @bp.route("/", methods=["GET", "POST"])
+@bp.route("/index", methods=["GET", "POST"])
 def index():
 
     if request.method == "POST":

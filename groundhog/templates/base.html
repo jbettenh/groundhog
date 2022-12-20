@@ -25,23 +25,23 @@
       <div class="collapse navbar-collapse" id="navbar">
         {% if session["user_id"] %}
         <ul class="navbar-nav me-auto mt-2">
-          <li class="nav-item"><a class="nav-link" href="/map">Map</a></li>
-          <li class="nav-item"><a class="nav-link" href="/zoo">Zoo</a></li>
-          <li class="nav-item"><a class="nav-link" href="sighting">Add Sighting</a></li>
-          <li class="nav-item"><a class="nav-link" href="history">Tracking History</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('routes.map_page') }}">Map</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('routes.zoo') }}">Zoo</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('routes.sighting') }}">Add Sighting</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('routes.history') }}">Tracking History</a></li>
         </ul>
         <ul class="navbar-nav ms-auto mt-2">
           <li class="nav-item">
-            <a class="nav-link" href="/auth/logout">Log Out</a>
+            <a class="nav-link" href="{{ url_for('auth.logout') }}">Log Out</a>
           </li>
         </ul>
         {% else %}
         <ul class="navbar-nav ms-auto mt-2">
           <li class="nav-item">
-            <a class="nav-link" href="/auth/register">Register</a>
+            <a class="nav-link" href="{{ url_for('auth.register') }}">Register</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/auth/login">Log In</a>
+            <a class="nav-link" href="{{ url_for('auth.login') }}">Log In</a>
           </li>
         </ul>
         {% endif %}
