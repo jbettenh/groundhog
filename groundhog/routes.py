@@ -1,13 +1,11 @@
 from flask import (
     Blueprint,
-    flash,
     redirect,
     render_template,
     request,
     url_for,
 )
 import folium
-from groundhog.chances import chances
 from groundhog.helpers import login_required
 from groundhog.models import db, Sightings, Zoos
 
@@ -22,15 +20,10 @@ def history():
     return render_template("history.html", sightings=sightings)
 
 
-@bp.route("/", methods=["GET", "POST"])
-@bp.route("/index", methods=["GET", "POST"])
+@bp.route("/", methods=["GET"])
+@bp.route("/index", methods=["GET"])
 def index():
-
-    if request.method == "POST":
-        flash(chances(request.form.get("country")))
-        return render_template("index.html")
-    else:
-        return render_template("index.html")
+    return render_template("index.html")
 
 
 @bp.route("/map", methods=["GET"])
