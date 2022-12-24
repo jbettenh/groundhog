@@ -6,23 +6,51 @@ Sighting
 
 {% block main %}
 <div class="mb-3">
-    <h3>Where did you see the groundhog?</h3>
+    <h2 class="display-6">Where did you see the groundhog?</h2>
 </div>
-<form action="/sighting" method="POST">
-    <div class="mb-3">
-        <input type="text" name="name" placeholder="Enter a name for the sighting" class="form-control mx-auto w-auto"
-            autofocus>
+<div class="row my-3 justify-content-center">
+    <div class="col-md-4" id="form-sighting">
+        <form action="/sighting" method="POST">
+            <div class="form-group">
+                <label for="name" class="form-label col-form-label mt-3">Nickname</label>
+                <div class="input-group mb-1">
+                    <span class="input-group-text"><i class="bi bi-card-text"></i></span>
+                    <input type="text" name="name" placeholder="Enter a name" class="form-control mx-auto w-auto"
+                        autofocus>
+                </div>
+                <div class="row my-3">
+                    <div class="col">
+                        <label for="latitude" class="form-label col-form-label">Latitude</label>
+                        <div class="input-group mb-1">
+                            <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
+                            <input type="text" name="latitude" placeholder="latitude" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="latitude" class="form-label col-form-label">Longitude</label>
+                        <div class="input-group mb-1">
+                            <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
+                            <input type="text" name="longitude" placeholder="longitude" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-3">
+                    <div class="col">
+                        <label for="description" class="form-label col-form-label">Description</label>
+                        <div class="input-group mb-1">
+                            <span class="input-group-text"><i class="bi bi-chat-right-text"></i></span>
+                            <textarea type="textarea" name="description" class="form-control"
+                                rows="3">Enter a description for the sighting</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-3">
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary">Add Sighting</button>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
-    <div class="mb-3">
-        <input type="text" name="latitude" placeholder="Enter the latitude" class="form-control mx-auto w-auto">
-    </div>
-    <div class="mb-3">
-        <input type="text" name="longitude" placeholder="Enter the longitude" class="form-control mx-auto w-auto">
-    </div>
-    <div class="mb-3">
-        <input type="text" name="description" placeholder="Enter a description for the sighting"
-            class="form-control mx-auto w-auto">
-    </div>
-    <button type="submit" class="btn btn-primary">Add Sighting</button>
-</form>
+</div>
 {% endblock %}

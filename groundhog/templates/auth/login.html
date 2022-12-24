@@ -5,26 +5,35 @@ Login
 {% endblock %}
 
 {% block main %}
-<div class="mb-1">
-    <h3>Login</h3>
-</div>
-<div class="card my-2 mx-auto w-30 sub-box">
-    <div class="my-3">
-        <form action="/auth/login" method="POST">
-            <div class="my-3">
-                <input type="text" name="username" placeholder="Username" autocomplete="off"
-                    class="form-control mx-auto w-auto" autofocus>
-            </div>
-            <div class="my-3">
-                <input type="text" name="password" placeholder="Password" class="form-control mx-auto w-auto">
-            </div>
-            <button type="submit" class="btn btn-primary">Log In</button>
-        </form>
+<div class="col-md-6 p-lg-5 mx-auto my-3">
+    <div class="mb-1">
+        <h2 class="display-5">Login</h2>
     </div>
-    <div class="border-top pt-3">
-        <small class="text-muted">Need an account? <a class="ml-2" href="{{ url_for('auth.register') }}">Sign Up
-                Now!</a>
-        </small>
+    <div class="card my-2 mx-auto w-30 sub-box">
+        <div class="my-3">
+            <form action="/auth/login" method="POST">
+                <div class="form-group">
+                    <label for="username" class="form-label col-form-label">Username</label>
+                    <div class="input-group mb-1 px-4">
+                        <span class="input-group-text"><i class="bi bi-person"></i></span>
+                        <input type="text" name="username" placeholder="Username" autocomplete="off"
+                            class="form-control mx-auto w-auto" autofocus>
+                    </div>
+                    <label for="password" class="form-label col-form-label">Password</label>
+                    <div class="input-group mb-4 px-4">
+                        <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                        <input type="text" name="password" placeholder="Password" class="form-control mx-auto w-auto">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Log In</button>
+                </div>
+            </form>
+        </div>
+        <div class="border-top py-3">
+            <small class="text-muted">Need an account? <a class="ml-2" href="{{ url_for('auth.register') }}">Sign Up
+                    Now!</a>
+            </small>
+        </div>
     </div>
+
 </div>
 {% endblock %}

@@ -6,9 +6,13 @@ Map
 
 {% block main %}
 <div class="mb-3">
-    <h3>Groundhog Sightings</h3>
+    <h2 class="display-6">Groundhog Sightings Map</h2>
 </div>
-<div class="mb-3">
-    {{ folium_map | safe }}
+<div class="row justify-content-center bg-primary py-4 px-2 mx-4">
+    <div class="col-md-12">
+        <div>
+            {{ folium_map | safe }}
+        </div>
+    </div>
 </div>
 {% endblock %}
