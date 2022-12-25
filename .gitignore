@@ -12,6 +12,7 @@ venv/
 
 # Development
 groundhog/static/node_modules
+groundhog/*.db
 
 # Build
 dist/
