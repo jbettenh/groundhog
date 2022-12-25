@@ -1,8 +1,6 @@
 import pytest
-from flask import template_rendered
 from groundhog import create_app, db
 from groundhog.models import Users, Sightings
-from config import TestingConfig
 
 
 class AuthActions(object):
@@ -34,19 +32,19 @@ def new_sighting():
 
 @pytest.fixture
 def app():
-    app = create_app(TestingConfig)
+    app = create_app()
 
     if app.testing:
         with app.app_context():
             db.drop_all()
-            from groundhog.models import Users, Sightings  # noqa: F401
+            from groundhog.models import Users, Sightings, Zoos  # noqa: F401
 
             db.create_all()
 
             yield app
 
             db.session.remove()
-            if str(db.engine.url) == TestingConfig.SQLALCHEMY_DATABASE_URI:
+            if str(db.engine.url) == app.config["SQLALCHEMY_DATABASE_URI"]:
                 db.drop_all()
 
 
@@ -58,17 +56,3 @@ def test_client(app):
 @pytest.fixture
 def auth(test_client):
     return AuthActions(test_client)
-
-
-@pytest.fixture
-def captured_templates(app):
-    recorded = []
-
-    def record(sender, template, context, **extra):
-        recorded.append((template, context))
-
-    template_rendered.connect(record, app)
-    try:
-        yield recorded
-    finally:
-        template_rendered.disconnect(record, app)

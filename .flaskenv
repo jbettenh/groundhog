@@ -1,2 +1,2 @@
-FLASK_APP = groundhog.py
+FLASK_APP = wsgi.py
 FLASK_DEBUG = False

@@ -1,19 +1,21 @@
+import os
 import click
 from flask import Flask
 from flask_migrate import Migrate
 from flask_session import Session
 from flask_sqlalchemy import SQLAlchemy
-from config import Config
+from config import Config  # noqa F401
 
 db = SQLAlchemy()
 migrate = Migrate()
 sess = Session()
 
 
-def create_app(config_class=Config):
+def create_app():
     # Create the Flask application
-    app = Flask(__name__)
-    app.config.from_object(config_class)
+    app = Flask(__name__, instance_relative_config=False)
+    CONFIG_TYPE = os.environ.get("CONFIG_TYPE", default="config.Config")
+    app.config.from_object(CONFIG_TYPE)
     app.cli.add_command(create_zoos)
 
     # Initialize Flask extensions here
@@ -21,13 +23,14 @@ def create_app(config_class=Config):
     migrate.init_app(app, db)
     sess.init_app(app)
 
-    # Register blueprints
-    from groundhog import auth, routes
+    with app.app_context():
+        # Register blueprints
+        from groundhog import auth, routes
 
-    app.register_blueprint(auth.bp)
-    app.register_blueprint(routes.bp)
+        app.register_blueprint(auth.bp)
+        app.register_blueprint(routes.bp)
 
-    return app
+        return app
 
 
 from groundhog import models  # noqa: E402, F401
