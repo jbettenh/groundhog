@@ -109,6 +109,12 @@ The `.env` file contains secrets like passwords and API keys and should not be u
 
 The `.gitignore` is needed for projects tracked with Git. This file allows you to not upload temporary files, secrets, or caches that are in the project folder to the public repository.
 
+The `.pre-commit-config.yaml` file
+
+```
+pre-commit run --all-files
+```
+
 The `config.py` file contains classes for creating configurations for different environments. This allows for configurations of different environments to be stored in a single file. It also gives the ability to inherit from the default class configuration. I chose this method, because it avoids having repetition in the multiple configurations.
 
 The `LICENSE` file is created from the GitHub template for MIT licenses and specifies the usage of this project.
@@ -168,9 +174,37 @@ The `conftest.py` file is used by Pytest and contains the setup and teardown cod
 
 I grouped the tests into two directories either `functional` or `unit` which was based on the level of the test. The unit tests test individual functions. The functional tests test the user interactions.
 
+## Project Usage
+
+The project focuses on tracking your groundhog sightings.
+
+Since the project uses Flask-Migrate, the following command can be used to update your db to the latest version:
+
+```
+flask db upgrade
+```
+
+The project comes with 2 Zoos that stated they had groundhogs. To insert them into the database use the CLI command:
+
+```
+flask create-zoos
+```
+
+To the run the application from the root project directory execute the command:
+
+```
+flask run
+```
+
 ## References:
 
+### Technical References:
+
 - [Flask application factory tutorial](https://flask.palletsprojects.com/en/2.2.x/tutorial/factory/)
-- [Github Actions examples](https://github.com/mgrum/flask-example-cicd/blob/main/.github/workflows/README.md)
 - [Testing Flask applications](https://testdriven.io/blog/flask-pytest/)
 - [The Flask mega tutorial](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world)
+- [Github Actions examples](https://github.com/mgrum/flask-example-cicd/blob/main/.github/workflows/README.md)
+
+### Groundhog References:
+
+- [Ecology and Management of the Groundhog (Marmota monax)](https://njaes.rutgers.edu/e361/)
