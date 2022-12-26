@@ -5,14 +5,30 @@ Home
 {% endblock %}
 
 {% block main %}
+
 <div class="position-relative overflow-hidden p-3 p-md-3 m-md-3 text-center bg-light">
-    <div class="col-md-6 p-lg-5 mx-auto my-3">
-        <h1 class="display-4 font-weight-normal">Groundhog</h1>
-        <p class="lead font-weight-normal">Thier official name is Marmota monax, but are also known as whistlepig, land
-            beaver,
-            and woodchuck.</p>
-        <a class="btn btn-outline-primary" href="{{ url_for('routes.sighting') }}">Have you seen one? Let's track
-            it!</a>
+    <div class="row">
+        <div class="col-md-6 mx-auto my-3">
+            <h1 class="display-4 font-weight-normal">Groundhog</h1>
+            <img class="rounded img-fluid" src="/static/images/groundhog_main.png"
+                alt="Groundhog peeking out of den to the right." /><cite>Image by <a
+                    href="https://pixabay.com/users/daledbet-14607822/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=6716056">David</a>
+                from <a
+                    href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=6716056">Pixabay</a></cite>
+            <p class="lead font-weight-normal">Their official name is Marmota monax, but are also known as whistlepig,
+                land
+                beaver,
+                and woodchuck.</p>
+            <div class="py-2">
+                <a class="btn btn-outline-primary" href="{{ url_for('routes.sighting') }}">Have you seen one? Let's
+                    track
+                    it!</a>
+            </div>
+            <div class="py-2">
+                <a class="btn btn-outline-primary" href="{{ url_for('routes.history') }}">Jump to
+                    tracking history.</a>
+            </div>
+        </div>
     </div>
 </div>
 
