@@ -11,7 +11,8 @@ Home
         <p class="lead font-weight-normal">Thier official name is Marmota monax, but are also known as whistlepig, land
             beaver,
             and woodchuck.</p>
-        <a class="btn btn-outline-primary" href="/sighting">Have you seen one? Let's track it!</a>
+        <a class="btn btn-outline-primary" href="{{ url_for('routes.sighting') }}">Have you seen one? Let's track
+            it!</a>
     </div>
 </div>
 
@@ -20,8 +21,11 @@ Home
         <div class="my-3 py-3">
             <h2 class="display-5">Habitats</h2>
             <p class="lead">Where can groundhogs be found?</p>
-            <a class="btn btn-outline-light" href="/map">See their habitat</a>
-            <a class="btn btn-outline-light" href="/map">See their range</a>
+            <a class="btn btn-outline-light" href="{{ url_for('routes.map_page', layer='Habitat', zoom='5') }}">See
+                their
+                habitat</a>
+            <a class="btn btn-outline-light" href="{{ url_for('routes.map_page', layer='Range', zoom='5') }}">See their
+                range</a>
         </div>
         <div class="bg-light box-shadow mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
             <div class="list-group">
@@ -45,7 +49,7 @@ Home
         <div class="my-3 p-3">
             <h2 class="display-5">Behavior</h2>
             <p class="lead">What to expect during the seasons.</p>
-            <a class="btn btn-outline-dark" href="/zoo">Find a zoo</a>
+            <a class="btn btn-outline-dark" href="{{ url_for('routes.zoo') }}">Find a zoo</a>
         </div>
         <div class="bg-dark box-shadow mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
             <div class="list-group">

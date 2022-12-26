@@ -29,9 +29,14 @@ def index():
 @bp.route("/map", methods=["GET"])
 @login_required
 def map_page():
+    show_habitat = True
+    show_range = False
+    zoom = 17
 
     latitude = request.args.get("latitude")
     longitude = request.args.get("longitude")
+    show_layer = request.args.get("layer")
+    zoom = request.args.get("zoom")
 
     if latitude is None or longitude is None:
         geo_location = (42.375890, -71.114685)
@@ -41,11 +46,15 @@ def map_page():
             longitude,
         )
 
-    folium_map = folium.Map(location=geo_location, zoom_start=17)
+    if show_layer == "Range":
+        show_range = True
+        show_habitat = False
+
+    folium_map = folium.Map(location=geo_location, zoom_start=zoom)
 
     # Add layer for habitat
     folium.raster_layers.WmsTileLayer(
-        url="""https://www.sciencebase.gov:443/geoserver/CONUS_HabMap_2001/wms?SERVICE=WMS&""",  # noqa E501
+        url="https://www.sciencebase.gov:443/geoserver/CONUS_HabMap_2001/wms?SERVICE=WMS&",  # noqa E501
         name="Habitat",
         fmt="image/png",
         layers="Woodchuck (Marmota monax) mWOODx v1",
@@ -57,11 +66,12 @@ def map_page():
         opacity=0.2,
         overlay=True,
         control=True,
+        show=show_habitat,
     ).add_to(folium_map)
 
     # Add layer for range
     folium.raster_layers.WmsTileLayer(
-        url="""https://www.sciencebase.gov:443/geoserver/CONUS_Range_2001/wms?SERVICE=WMS&""",  # noqa E501
+        url="https://www.sciencebase.gov:443/geoserver/CONUS_Range_2001/wms?SERVICE=WMS&",  # noqa E501
         name="Range",
         fmt="image/png",
         layers="Woodchuck (Marmota monax) mWOODx v1",
@@ -73,7 +83,7 @@ def map_page():
         opacity=0.2,
         overlay=True,
         control=True,
-        show=False,
+        show=show_range,
     ).add_to(folium_map)
 
     # Add a legend to hide/show layers
