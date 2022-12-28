@@ -208,4 +208,5 @@ flask run
 ### Groundhog References:
 
 - [Ecology and Management of the Groundhog (Marmota monax)](https://njaes.rutgers.edu/e361/)
-- [groundhog_main.jpg](https://pixabay.com/photos/animal-groundhog-mammal-wildlife-6716056/)
+- The main picture on the index page `groundhog_main.jpg` is found [here](https://pixabay.com/photos/animal-groundhog-mammal-wildlife-6716056/)
+- The original picture for `groundhog_brand.png` is free for use from [here](https://pixabay.com/photos/groundhog-groundhog-day-cute-animal-5946109/)

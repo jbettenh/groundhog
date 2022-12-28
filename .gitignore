@@ -33,4 +33,4 @@ flask_session/
 instance/
 
 # Data
-groundhog/static/images/
+groundhog/static/images/*
