@@ -34,18 +34,17 @@ def new_sighting():
 def app():
     app = create_app()
 
-    if app.testing:
-        with app.app_context():
+    with app.app_context():
+        db.drop_all()
+        from groundhog.models import Users, Sightings, Zoos  # noqa: F401
+
+        db.create_all()
+
+        yield app
+
+        db.session.remove()
+        if str(db.engine.url) == app.config["SQLALCHEMY_DATABASE_URI"]:
             db.drop_all()
-            from groundhog.models import Users, Sightings, Zoos  # noqa: F401
-
-            db.create_all()
-
-            yield app
-
-            db.session.remove()
-            if str(db.engine.url) == app.config["SQLALCHEMY_DATABASE_URI"]:
-                db.drop_all()
 
 
 @pytest.fixture

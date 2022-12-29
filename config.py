@@ -11,6 +11,7 @@ class Config(object):
     SQLALCHEMY_DATABASE_URI = "sqlite:///" + os.path.join(
         base_dir, "groundhog", "app.db"
     )
+    SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     TESTING = False
 
@@ -19,7 +20,6 @@ class DevelopmentConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get("DB_URI_POSTGRESQL")
     SQLALCHEMY_ECHO = True
     TEMPLATES_AUTO_RELOAD = True
-    TESTING = True
 
 
 class TestingConfig(Config):
