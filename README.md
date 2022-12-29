@@ -266,5 +266,6 @@ This page shows the results for all sightings in the database.
 - [Ecology and Management of the Groundhog (Marmota monax)](https://njaes.rutgers.edu/e361/)
 - The data for the [Habitat map](https://www.sciencebase.gov/catalog/item/58fa804ae4b0b7ea54525c0b) is provided by [U.S. Geological Survey (USGS) Gap Analysis Project (GAP), 2018, U.S.Geological Survey - Gap Analysis Project Species Range Maps CONUS_2001: U.S. Geological Survey data release, https://doi.org/10.5066/F7Q81B3R.](https://www.usgs.gov/programs/gap-analysis-project/science/species-data-web-services#overview)
 - The data for the [Range map](https://www.sciencebase.gov/catalog/item/59f5e264e4b063d5d307de5d) is provided by [U.S. Geological Survey (USGS) Gap Analysis Project (GAP), 2018, U.S.Geological Survey - Gap Analysis Project Species Range Maps CONUS_2001: U.S. Geological Survey data release, https://doi.org/10.5066/F7Q81B3R.](https://www.usgs.gov/programs/gap-analysis-project/science/species-data-web-services#overview)
-- The main picture on the index page `groundhog_main.jpg` is found [here](https://pixabay.com/photos/animal-groundhog-mammal-wildlife-6716056/)
-- The original picture for `groundhog_brand.png` is free for use from [here](https://pixabay.com/photos/groundhog-groundhog-day-cute-animal-5946109/)
+- The original picture for the index page `groundhog_main.jpeg` is found [here](https://pixabay.com/photos/animal-groundhog-mammal-wildlife-6716056/)
+- The original picture for `groundhog_brand.png` is found [here](https://pixabay.com/photos/groundhog-groundhog-day-cute-animal-5946109/)
+- The original picture for `groundhog_sighting.png` is found [here](https://pixabay.com/photos/ground-hog-animal-groundhog-3745756/)
