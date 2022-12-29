@@ -31,14 +31,14 @@ The tutorial from the official Flask documentation uses [Pytest](https://pypi.or
 
 ## Project Structure:
 
-The project structure is shown below. Flask is very flexible and doesn't standardize the layout. I have chosen to use the [application factory pattern](https://flask.palletsprojects.com/en/2.2.x/patterns/appfactories/).
+The project structure is shown below. It includes files, which are not committed to GitHub. They are mentioned here to give a complete picture of the final project. Flask is very flexible and doesn't standardize the layout. I have chosen to use the [application factory pattern](https://flask.palletsprojects.com/en/2.2.x/patterns/appfactories/).
 
 ```bash
 groundhog
 |-- .github
 |   |-- codecov.yml
 |   |-- workflows
-|       |-- dev_build.yml
+|       |-- dev_pipeline.yml
 |       `-- prod_pipeline.yml
 |-- .venv
 |-- groundhog
@@ -49,9 +49,18 @@ groundhog
 |   |-- models.py
 |   |-- routes.py
 |   |-- static
-|   |   `-- styles.css
+|   |   |-- css
+|   |   |   |-- main.min.css
+|   |   |   |-- main.min.css.map
+|   |   |-- images
+|   |   |   |-- groundhog_brand.png
+|   |   |   `-- groundhog_main.jpg
+|   |   |-- node_modules
+|   |   |-- sass
+|   |        `-- main.css
+|   |   |-- package-lock.json
+|   |   |-- package.json
 |   `-- templates
-|       |-- about.html
 |       |-- auth
 |       |   |-- login.html
 |       |   `-- register.html
@@ -61,29 +70,40 @@ groundhog
 |       |-- map.html
 |       |-- sighting.html
 |       `-- zoo.html
+|-- migrations
+|   |-- README
+|   |-- alembic.ini
+|   |-- env.py
+|   |-- script.py.mako
+|   `-- versions
+|       `-- fed7b412c063_initial_migrate.py
+|-- tests
+    |-- conftest.py
+    |-- functional
+    |   |-- __init__.py
+    |   |-- test_auth.py
+    |   `-- test_routes.py
+    |-- integration
+    |   |-- __init__.py
+    |   |-- test_config.py
+    |   `-- test_db.py
+    `-- unit
+        |-- __init__.py
+        |-- test_helpers.py
+        `-- test_models.py
 |-- .env
 |-- .env.template
+|-- .flaskenv
 |-- .gitignore
+|-- .pre-commit-config.yaml
 |-- config.py
 |-- LICENSE
 |-- poetry.lock
 |-- pyproject.toml
 |-- README.md
 |-- requirements.txt
-`-- tests
-    |-- conftest.py
-    |-- functional
-    |   |-- __init__.py
-    |   |-- test_auth.py
-    |   `-- test_routes.py
-    |-- test.db
-    `-- unit
-        |-- __init__.py
-        |-- test_chances.py
-        |-- test_config.py
-        |-- test_helpers.py
-        |-- test_models.py
-        `-- test_templates.py
+|-- setup.cfg
+`-- wsgi.py
 ```
 
 ### groundhog - Project root
@@ -107,9 +127,11 @@ The `.venv` directory is not tracked nor uploaded to public repositories. Howeve
 
 The `.env` file contains secrets like passwords and API keys and should not be uploaded to public repositories! I have included a sample as `.env.template` as a way for people to get started quickly. They just need to add their specific information and remove `.template` from the file name. You can select your configuration via the environment by setting the config class in `CONFIG_TYPE` in .env and the class from `config.py`. The `config.py` shouldn't contain secrets either, so we can upload it to public repositories. This file allows you to have default configurations and build upon that via classes.
 
-The `.gitignore` is needed for projects tracked with Git. This file allows you to not upload temporary files, secrets, or caches that are in the project folder to the public repository.
+The `.flaskenv` file is used by Flask to setup environment variables that are needed such as `FLASK_APP` and `FLASK_DEBUG`, before the application is configured with the above mentioned `.env` file.
 
-The `.pre-commit-config.yaml` file
+The `.gitignore` file is needed for projects tracked with Git. This file allows you to not upload temporary files, secrets, or caches that are in the project folder to the public repository.
+
+The `.pre-commit-config.yaml` file is the configuration needed for the pre-commit package. This is the tool that executes the other tools e.g. Flake8, Black, end of file checks on every commit.
 
 ```
 pre-commit run --all-files
@@ -129,9 +151,13 @@ The `requirements.txt` file are often still needed for builds such as GitHub Act
 poetry export --with dev --without-hashes --format=requirements.txt > requirements.txt
 ```
 
+The `setup.cfg` file is the configuration file need for Flake8. For example it has it exclude the migrations folder.
+
+The `wsgi.py` file is the entry point for the application. This is often named app.py as well.
+
 ### .github - GitHub Actions Workflows
 
-The directory .github\workflows contains YAML files for running GitHub actions. The current configruation builds the project and executes the unit tests. The `codecov.yml` file is used for configuring non-defaults for the coverage report for the project. The `dev_build.yml` runs the CI on any commit to any branch -- other than the trunk branch. The `prod_pipeline.yml` runs the CI on any commit to the trunk branch. This workflow also creates and uploads a test report to [Codecov](https://about.codecov.io/). This allows for the usage of the Codecov badge at the top of this README.md. In the future this workflow would also include a CD component and deploy the app to a PAAS.
+The directory .github\workflows contains YAML files for running GitHub actions. The current configruation builds the project and executes the unit tests. The `codecov.yml` file is used for configuring non-defaults for the coverage report for the project. The `dev_pipeline.yml` runs the CI on any commit to any branch -- other than the trunk branch. The `prod_pipeline.yml` runs the CI on any commit to the trunk branch. This workflow also creates and uploads a test report to [Codecov](https://about.codecov.io/). This allows for the usage of the Codecov badge at the top of this README.md. In the future this workflow would also include a CD component and deploy the app to a PAAS.
 
 .github\
 
@@ -139,7 +165,7 @@ The directory .github\workflows contains YAML files for running GitHub actions. 
 
 .github\workflows
 
-- dev_build.yml
+- dev_pipeline.yml
 - prod_pipeline.yml
 
 ### groundhog - Module
@@ -153,22 +179,24 @@ pytest --setup-show --cov=groundhog --cov-report term-missing
 ```
 
 - conftest.py
-- test.db
 
-**functional**
+  **functional**
 
 - \_\_init\_\_.py
 - test_auth.py
 - test_routes.py
 
+**integration**
+
+- \_\_init\_\_.py
+- test_config.py
+- test_db.py
+
 **unit**
 
 - \_\_init\_\_.py
-- test_chances.py
-- test_config.py
 - test_helpers.py
 - test_models.py
-- test_templates.py
 
 The `conftest.py` file is used by Pytest and contains the setup and teardown code for the tests. The `test.db` isn't included in the repository as it is created only for some functional tests.
 
@@ -196,6 +224,34 @@ To the run the application from the root project directory execute the command:
 flask run
 ```
 
+The application consists of a few different pages. The following section gives an overview.
+
+### Homepage
+
+This is the start page for the application and is accessible without logging in.
+
+### Register
+
+Here the user can create a username, include their email, and create a password.
+
+### Login
+
+On this page the user can login with created username and password from the registraion page.
+
+### Map
+
+### Zoo
+
+This page shows a list of zoos in the database. As mentioned above a few default zoos can be created with the CLI.
+
+### Add Sighting
+
+This page provides a form for the user to add the location about a sighting of a groundhog.
+
+### Tracking History
+
+This page shows the results for all sightings in the database.
+
 ## References:
 
 ### Technical References:
@@ -208,5 +264,7 @@ flask run
 ### Groundhog References:
 
 - [Ecology and Management of the Groundhog (Marmota monax)](https://njaes.rutgers.edu/e361/)
+- The data for the [Habitat map](https://www.sciencebase.gov/catalog/item/58fa804ae4b0b7ea54525c0b) is provided by [U.S. Geological Survey (USGS) Gap Analysis Project (GAP), 2018, U.S.Geological Survey - Gap Analysis Project Species Range Maps CONUS_2001: U.S. Geological Survey data release, https://doi.org/10.5066/F7Q81B3R.](https://www.usgs.gov/programs/gap-analysis-project/science/species-data-web-services#overview)
+- The data for the [Range map](https://www.sciencebase.gov/catalog/item/59f5e264e4b063d5d307de5d) is provided by [U.S. Geological Survey (USGS) Gap Analysis Project (GAP), 2018, U.S.Geological Survey - Gap Analysis Project Species Range Maps CONUS_2001: U.S. Geological Survey data release, https://doi.org/10.5066/F7Q81B3R.](https://www.usgs.gov/programs/gap-analysis-project/science/species-data-web-services#overview)
 - The main picture on the index page `groundhog_main.jpg` is found [here](https://pixabay.com/photos/animal-groundhog-mammal-wildlife-6716056/)
 - The original picture for `groundhog_brand.png` is free for use from [here](https://pixabay.com/photos/groundhog-groundhog-day-cute-animal-5946109/)
