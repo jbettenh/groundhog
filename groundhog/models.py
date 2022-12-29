@@ -41,6 +41,9 @@ class Sightings(db.Model):
         self.longitude = longitude
         self.description = description
 
+    def __repr__(self):
+        return f'<Sighting "{self.name}">'
+
 
 class Zoos(db.Model):
     __tablename__ = "zoos"
@@ -52,3 +55,12 @@ class Zoos(db.Model):
     has_groundhog = db.Column(
         db.Boolean(create_constraint=True, name="has_groundhog")
     )
+
+    def __init__(self, name, website, description, has_groundhog):
+        self.name = name
+        self.website = website
+        self.description = description
+        self.has_groundhog = has_groundhog
+
+    def __repr__(self):
+        return f'<Zoo "{self.name}">'
