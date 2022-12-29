@@ -1,4 +1,4 @@
-name: DEV - Build and Test
+name: DEV - CI Pipeline
 
 on:
   push:
