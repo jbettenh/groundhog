@@ -1,6 +1,6 @@
 import pytest
 from groundhog import create_app, db
-from groundhog.models import Users, Sightings
+from groundhog.models import Users, Sightings, Zoos
 
 
 class AuthActions(object):
@@ -17,17 +17,28 @@ class AuthActions(object):
 
 
 @pytest.fixture(scope="module")
+def new_sighting():
+    sighting = Sightings(
+        "Sanders Theater", 42.375890, -71.114685, "Test sighting"
+    )
+    return sighting
+
+
+@pytest.fixture(scope="module")
 def new_user():
     user = Users("jdoe", "password", "jdoe@groundhog.com", "John", "Doe")
     return user
 
 
 @pytest.fixture(scope="module")
-def new_sighting():
-    sighting = Sightings(
-        "Sanders Theater", 42.375890, -71.114685, "Test sighting"
+def new_zoo():
+    zoo = Zoos(
+        "Lincoln Park Zoo",
+        "https://www.lpzoo.org/",
+        "For Wildlife. For All.",
+        False,
     )
-    return sighting
+    return zoo
 
 
 @pytest.fixture
