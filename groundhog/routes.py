@@ -31,7 +31,6 @@ def index():
 def map_page():
     show_habitat = True
     show_range = False
-    zoom = 17
 
     latitude = request.args.get("latitude")
     longitude = request.args.get("longitude")
@@ -49,6 +48,9 @@ def map_page():
     if show_layer == "Range":
         show_range = True
         show_habitat = False
+
+    if zoom is None:
+        zoom = 17
 
     folium_map = folium.Map(location=geo_location, zoom_start=zoom)
 
