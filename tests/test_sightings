@@ -1,0 +1,17 @@
+INSERT INTO sightings (name, latitude, longitude,description, timestamp)
+VALUES ('Herter Park', 42.366977750974144, -71.13306734251947, 'Evening walk', '2022-04-21 17:55:58');
+
+INSERT INTO sightings (name, latitude, longitude,description, timestamp)
+VALUES ('Mt Auburn Cemetery', 42.37350920538444, -71.14184353060246, 'Near Mary Baker Eddy Monument', '2022-04-19 14:39:07');
+
+INSERT INTO sightings (name, latitude, longitude,description, timestamp)
+VALUES ('Wright''s Park', 42.44365664953497, -71.09870628904402, 'North side of the pond', '2022-04-18 07:33:55');
+
+INSERT INTO sightings (name, latitude, longitude,description, timestamp)
+VALUES ('Sheppard''s Stone', 42.45595949159201, -71.10742378735196, 'Near log pile', '2022-04-16 08:05:22');
+
+INSERT INTO sightings (name, latitude, longitude,description, timestamp)
+VALUES ('Little Fresh Pond Dog Beach', 42.38398910607642, -71.15558985022308, 'Walking the dog', '2022-03-07 18:39:25');
+
+INSERT INTO sightings (name, latitude, longitude,description, timestamp)
+VALUES ('North Pond', 42.389572157046885, -71.15302858594622, 'Morning run', '2022-03-05 08:15:45');
