@@ -18,7 +18,7 @@
 <body class="bg-secondary">
   <nav class="bg-light border navbar navbar-expand-md navbar-light fixed-bottom">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/"><img height=12 src="/static/images/groundhog_brand.png"
+      <a class="navbar-brand" href="/"><img height=52 src="/static/images/groundhog_brand.png"
           alt="A brand image of groundhog" />
         <span>Groundhog</span></a>
       <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
@@ -27,19 +27,19 @@
       </button>
       <div class="collapse navbar-collapse" id="navbar">
         {% if session["user_id"] %}
-        <ul class="navbar-nav me-auto mt-2">
+        <ul class="navbar-nav me-auto">
           <li class="nav-item"><a class="nav-link" href="{{ url_for('routes.map_page') }}">Map</a></li>
           <li class="nav-item"><a class="nav-link" href="{{ url_for('routes.zoo') }}">Zoo</a></li>
           <li class="nav-item"><a class="nav-link" href="{{ url_for('routes.sighting') }}">Add Sighting</a></li>
           <li class="nav-item"><a class="nav-link" href="{{ url_for('routes.history') }}">Tracking History</a></li>
         </ul>
-        <ul class="navbar-nav ms-auto mt-2">
+        <ul class="navbar-nav ms-auto">
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('auth.logout') }}">Log Out</a>
           </li>
         </ul>
         {% else %}
-        <ul class="navbar-nav ms-auto mt-2">
+        <ul class="navbar-nav ms-auto">
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('auth.register') }}">Register</a>
           </li>
