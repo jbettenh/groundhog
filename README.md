@@ -9,25 +9,79 @@
 
 ### Final Project - Week 10 Documentation
 
-Created by: Joseph Bettenhausen. Düsseldorf, Germany
+Created by: Joseph Bettenhausen, 2022, Düsseldorf, Germany
 
 [Week 10 Specification](https://cs50.harvard.edu/x/2022/project/)
 
 #### Video Demo:
 
+[Groundhog Demo a Flask App](https://youtu.be/kv86SawKgdg)
+
 #### Description:
 
-This is a Flask application for the final project of CS50. The title of the project is called `Groundhog`. This app allows users to record sightings of groundhogs within the continental United States.
+This is a Flask application for the final project of CS50X. The title of the project is called `Groundhog`. This app allows users to record sightings of groundhogs within the continental United States.
 
 I chose to use [Poetry](https://pypi.org/project/poetry/) for environment and dependency management. I have experience with Poetry and found it easy to use. It is also becoming very popular among Python developers and I wanted to have more exposure to it.
 
 Even though I have experience creating Django applications, I chose to make a [Flask](https://pypi.org/project/Flask/) application. This would allow me to use my Python knowledge and expand my exposure to Flask, which was introduced in Week 9 of the CS50X course.
 
-I opted not to use the CS50 library for SQL and instead chose to use [Flask SQL Alchemy](https://pypi.org/project/flask-sqlalchemy/). It is an extension for Flask which makes it easier to use SQLAlchemy. SQLAlchemy is an Object Relational Mapper (ORM), which are often used in larger projects to simplify querying and abstract away the specific database systems. As I have had no experience with any ORM before, I thought it important to pick one for ease of use, setup, with good documentation, and examples. I wanted to implement SQLAlchemy into the project, because it has received a lot of good reviews for usage with Python.
+I opted not to use the CS50 library for SQL and instead chose to use [Flask SQL Alchemy](https://pypi.org/project/flask-sqlalchemy/). It is an extension for Flask which makes it easier to use SQLAlchemy. SQLAlchemy is an Object Relational Mapper (ORM), which are often used in larger projects to simplify querying and abstract away the specific database systems. As I didn't have a lot of experience with an ORM before, I thought it important to pick one for ease of use, setup, with good documentation, and examples. I wanted to implement SQLAlchemy into the project, because it has received a lot of good reviews for usage with Python.
 
 It is said, that code is more often read than it is written. Therefore formatting and linting are important. That is why I picked the popular packages [Black](https://pypi.org/project/black/) and [Flake8](https://pypi.org/project/flake8/) to format and lint my code. Both were easy to setup and immediately useful in improving the code quality. I was also able to set them up on pre-commit check, so that they are always checking the code on every commit.
 
 The tutorial from the official Flask documentation uses [Pytest](https://pypi.org/project/pytest/). Pytest is a reliable and detailed framework for testing Python projects not just Flask applications. I was really interested in using it to write my tests and to further my experience with it.
+
+## Project Usage
+
+The project focuses on tracking your groundhog sightings.
+
+Since the project uses Flask-Migrate, the following command can be used to update your db to the latest version:
+
+```
+flask db upgrade
+```
+
+The project comes with 2 Zoos that stated they had groundhogs. To insert them into the database use the CLI command:
+
+```
+flask create-zoos
+```
+
+To the run the application from the root project directory execute the command:
+
+```
+flask run
+```
+
+The application consists of a few different pages. The following section gives an overview.
+
+### Homepage
+
+This is the start page for the application and is accessible without logging in.
+
+### Register
+
+Here the user can create a username, include their email, and create a password.
+
+### Login
+
+On this page the user can login with created username and password from the registraion page.
+
+### Map
+
+This page shows all of the sightings from the database using markers.
+
+### Zoo
+
+This page shows a list of zoos in the database. As mentioned above a few default zoos can be created with the CLI.
+
+### Add Sighting
+
+This page provides a form for the user to add the location about a sighting of a groundhog.
+
+### Tracking History
+
+This page shows the results for all sightings in the database.
 
 ## Project Structure:
 
@@ -44,7 +98,6 @@ groundhog
 |-- groundhog
 |   |-- __init__.py
 |   |-- auth.py
-|   |-- chances.py
 |   |-- helpers.py
 |   |-- models.py
 |   |-- routes.py
@@ -54,7 +107,10 @@ groundhog
 |   |   |   |-- main.min.css.map
 |   |   |-- images
 |   |   |   |-- groundhog_brand.png
-|   |   |   `-- groundhog_main.jpg
+|   |   |   |-- groundhog_main.jpeg
+|   |   |   |-- groundhog_sighting.jpeg
+|   |   |   |-- habitat_leaf.png
+|   |   |   `-- seasons.png
 |   |   |-- node_modules
 |   |   |-- sass
 |   |        `-- main.css
@@ -113,13 +169,17 @@ The following directory and files exist in the project root directory.
 - .venv
 - .env
 - .env.template
+- .flaskenv
 - .gitignore
+- .pre-commit-config.yaml
 - config.py
 - LICENSE
 - poetry.lock
 - pyproject.toml
 - README.md
 - requirements.txt
+- setup.cfg
+- wsgi.py
 
 #### Environment and dependency management:
 
@@ -131,7 +191,7 @@ The `.flaskenv` file is used by Flask to setup environment variables that are ne
 
 The `.gitignore` file is needed for projects tracked with Git. This file allows you to not upload temporary files, secrets, or caches that are in the project folder to the public repository.
 
-The `.pre-commit-config.yaml` file is the configuration needed for the pre-commit package. This is the tool that executes the other tools e.g. Flake8, Black, end of file checks on every commit.
+The `.pre-commit-config.yaml` file is the configuration needed for the pre-commit package. This is the tool that executes the other tools e.g. Flake8, Black, and end of file checks on every commit. It can be manually run with the following command:
 
 ```
 pre-commit run --all-files
@@ -151,7 +211,7 @@ The `requirements.txt` file are often still needed for builds such as GitHub Act
 poetry export --with dev --without-hashes --format=requirements.txt > requirements.txt
 ```
 
-The `setup.cfg` file is the configuration file need for Flake8. For example it has it exclude the migrations folder.
+The `setup.cfg` file is the configuration file need for Flake8. For example, it has it excluded the migrations folder from being checked.
 
 The `wsgi.py` file is the entry point for the application. This is often named app.py as well.
 
@@ -159,16 +219,87 @@ The `wsgi.py` file is the entry point for the application. This is often named a
 
 The directory .github\workflows contains YAML files for running GitHub actions. The current configruation builds the project and executes the unit tests. The `codecov.yml` file is used for configuring non-defaults for the coverage report for the project. The `dev_pipeline.yml` runs the CI on any commit to any branch -- other than the trunk branch. The `prod_pipeline.yml` runs the CI on any commit to the trunk branch. This workflow also creates and uploads a test report to [Codecov](https://about.codecov.io/). This allows for the usage of the Codecov badge at the top of this README.md. In the future this workflow would also include a CD component and deploy the app to a PAAS.
 
-.github\
+**.github**
 
 - codecov.yml
 
-.github\workflows
+**.github\workflows**
 
 - dev_pipeline.yml
 - prod_pipeline.yml
 
 ### groundhog - Module
+
+- \_\_init\_\_.py
+- auth.py
+- helpers.py
+- models.py
+- routes.py
+
+The `__init__.py` file is what creates the instance of the application. This is called by the wsgi.py file and is where plugins and Blueprints are registered.
+
+The `auth.py` file contains the routes for registering, login, and logout functionalities.
+
+The `helpers.py` file contains the decorator function for checking if the user is logged in.
+
+The `models.py` file contains code for creating the tables and to be able to create, edit, delete records from the database.
+
+The `routes.py` file contains the routes for the remaining pages of the application, such as Index/Home, Map, Zoo, Sighting, and Tracking History.
+
+#### Static
+
+- package-lock.json
+- package.json
+
+**css**
+
+Compiled css from the sass `main.scss` file.
+
+**images**
+
+Contains all the images used in the application.
+
+- groundhog_brand.png
+- groundhog_main.jpeg
+- groundhog_sighting.jpeg
+- habitat_leaf.png
+- seasons.png
+
+**sass**
+
+- main.scss
+
+This `package-lock.json` and `package.json` files are for showing the version of Bootstrap that was installed during development. This was necessary in order to create the `main.scss` file. This contains the css for the project as well as the updating bootstrap default colors. This file is compiled and then put into the css folder as `main.min.css` and `main.min.css.map` for the application to use.
+
+#### Templates
+
+Contains the templates for the application.
+
+- base.html
+- history.html
+- index.html
+- map.html
+- sighting.html
+- zoo.html
+
+This `base.html` file creates the basic structure html for all other templates. All other templates extend this template.
+
+This `history.html` file is the template for the Tracking History page. This `index.html` file is the template for the main homepage. This `map.html` file is the template of the Map page. This `sighting.html` file is the template for the form in order to enter a sighting. This `zoo.html` file is the template for showing a list of zoos in the database.
+
+**auth**
+
+Contains the templates for the `auth` Blueprint.
+
+- login.html
+- register.html
+
+This `login.html` file is the template for allowing a user to log into the application. This `register.html` file is the template for creating a new user in the application.
+
+#### Migrations
+
+- fed7b412c063_initial_migrate.py
+
+The `fed7b412c063_initial_migrate.py` was created by using Flask Migrate when I initialized and created the initial database version. The rest of this folder was generated automatically by the Flask Migrate plugin.
 
 ### tests - Pytest Tests
 
@@ -180,11 +311,11 @@ pytest --setup-show --cov=groundhog --cov-report term-missing
 
 - conftest.py
 
-  **functional**
+**unit**
 
 - \_\_init\_\_.py
-- test_auth.py
-- test_routes.py
+- test_helpers.py
+- test_models.py
 
 **integration**
 
@@ -192,65 +323,21 @@ pytest --setup-show --cov=groundhog --cov-report term-missing
 - test_config.py
 - test_db.py
 
-**unit**
+**functional**
 
 - \_\_init\_\_.py
-- test_helpers.py
-- test_models.py
+- test_auth.py
+- test_routes.py
 
 The `conftest.py` file is used by Pytest and contains the setup and teardown code for the tests. The `test.db` isn't included in the repository as it is created only for some functional tests.
 
-I grouped the tests into two directories either `functional` or `unit` which was based on the level of the test. The unit tests test individual functions. The functional tests test the user interactions.
+I grouped the tests into two directories either `unit`, `integration`, or `functional` which was based on the level of the test.
 
-## Project Usage
+The unit tests test the models with SQLAlchemy (not the database) `test_models.py`. The `test_helpers.py` tests the functions in the `helper.py` file.
 
-The project focuses on tracking your groundhog sightings.
+The integration tests test configuring the application `test_config.py` or a PostgreSQL database in `test_db.py`. The functional tests test the user interactions.
 
-Since the project uses Flask-Migrate, the following command can be used to update your db to the latest version:
-
-```
-flask db upgrade
-```
-
-The project comes with 2 Zoos that stated they had groundhogs. To insert them into the database use the CLI command:
-
-```
-flask create-zoos
-```
-
-To the run the application from the root project directory execute the command:
-
-```
-flask run
-```
-
-The application consists of a few different pages. The following section gives an overview.
-
-### Homepage
-
-This is the start page for the application and is accessible without logging in.
-
-### Register
-
-Here the user can create a username, include their email, and create a password.
-
-### Login
-
-On this page the user can login with created username and password from the registraion page.
-
-### Map
-
-### Zoo
-
-This page shows a list of zoos in the database. As mentioned above a few default zoos can be created with the CLI.
-
-### Add Sighting
-
-This page provides a form for the user to add the location about a sighting of a groundhog.
-
-### Tracking History
-
-This page shows the results for all sightings in the database.
+The functional tests test the routes in the auth blueprint in `test_auth.py` and the `test_routes.py` test routes in routes blueprint.
 
 ## References:
 
@@ -268,4 +355,4 @@ This page shows the results for all sightings in the database.
 - The data for the [Range map](https://www.sciencebase.gov/catalog/item/59f5e264e4b063d5d307de5d) is provided by [U.S. Geological Survey (USGS) Gap Analysis Project (GAP), 2018, U.S.Geological Survey - Gap Analysis Project Species Range Maps CONUS_2001: U.S. Geological Survey data release, https://doi.org/10.5066/F7Q81B3R.](https://www.usgs.gov/programs/gap-analysis-project/science/species-data-web-services#overview)
 - The original picture for the index page `groundhog_main.jpeg` is found [here](https://pixabay.com/photos/animal-groundhog-mammal-wildlife-6716056/)
 - The original picture for `groundhog_brand.png` is found [here](https://pixabay.com/photos/groundhog-groundhog-day-cute-animal-5946109/)
-- The original picture for `groundhog_sighting.png` is found [here](https://pixabay.com/photos/ground-hog-animal-groundhog-3745756/)
+- The original picture for `groundhog_sighting.jpeg` is found [here](https://pixabay.com/photos/ground-hog-animal-groundhog-3745756/)
