@@ -63,28 +63,32 @@ This is the start page for the application and is accessible without logging in.
 ### Register
 
 Here the user can create a username, include their email, and create a password.
-![Screenshot of homepage with pictures of groundhogs and information about them.](/demo/register.JPG)
+![Screenshot of register page.](/demo/register.JPG)
 
 ### Login
 
 On this page the user can login with created username and password from the registraion page.
-![Screenshot of homepage with pictures of groundhogs and information about them.](/demo/login.JPG)
+![Screenshot of login page.](/demo/login.JPG)
 
 ### Map
 
 This page shows all of the sightings from the database using markers.
+![Screenshot of a map with markers of sightings of groundhogs.](/demo/map.JPG)
 
 ### Zoo
 
 This page shows a list of zoos in the database. As mentioned above a few default zoos can be created with the CLI.
+![Screenshot of page with information about zoos with groundhogs.](/demo/zoo.JPG)
 
 ### Add Sighting
 
 This page provides a form for the user to add the location about a sighting of a groundhog.
+![Screenshot of page to add a new sighting of a groundhog.](/demo/sighting.JPG)
 
 ### Tracking History
 
 This page shows the results for all sightings in the database.
+![Screenshot of page showing table of documented sightings.](/demo/history.JPG)
 
 ## Project Structure:
 
