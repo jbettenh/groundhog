@@ -134,19 +134,20 @@ groundhog
 |   `-- versions
 |       `-- fed7b412c063_initial_migrate.py
 |-- tests
-    |-- conftest.py
-    |-- functional
-    |   |-- __init__.py
-    |   |-- test_auth.py
-    |   `-- test_routes.py
-    |-- integration
-    |   |-- __init__.py
-    |   |-- test_config.py
-    |   `-- test_db.py
-    `-- unit
-        |-- __init__.py
-        |-- test_helpers.py
-        `-- test_models.py
+|   |-- conftest.py
+|   |-- test_sightings
+|   |-- functional
+|   |   |-- __init__.py
+|   |   |-- test_auth.py
+|   |   `-- test_routes.py
+|   |-- integration
+|   |   |-- __init__.py
+|   |   |-- test_config.py
+|   |   `-- test_db.py
+|    `-- unit
+|       |-- __init__.py
+|       |-- test_helpers.py
+|       `-- test_models.py
 |-- .env
 |-- .env.template
 |-- .flaskenv
@@ -330,6 +331,8 @@ pytest --setup-show --cov=groundhog --cov-report term-missing
 - test_routes.py
 
 The `conftest.py` file is used by Pytest and contains the setup and teardown code for the tests. The `test.db` isn't included in the repository as it is created only for some functional tests.
+
+The `test_sightings` file is SQL that inserts some test sightings to the database.
 
 I grouped the tests into two directories either `unit`, `integration`, or `functional` which was based on the level of the test.
 
