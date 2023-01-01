@@ -58,6 +58,7 @@ The application consists of a few different pages. The following section gives a
 ### Homepage
 
 This is the start page for the application and is accessible without logging in.
+![Screenshot of homepage with pictures of groundhogs and information about them.](https://github.com/jbettenh/groundhog/demo/trunk/home.JPG?raw=true)
 
 ### Register
 
